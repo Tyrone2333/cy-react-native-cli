@@ -1,0 +1,29 @@
+{
+  "name": "cy-react-native-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/www.js",
+  "bin": {
+    "cy-cli": "./bin/www.js",
+    "cy": "./bin/www.js"
+  },
+  "scripts": {
+    "compile": "babel src -d dist",
+    "watch": "npm run compile -- --watch",
+    "link": "npm link cy-react-native-cli",
+    "ppppp?": "eos config set"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-env": "^2.4.1",
+    "chalk": "^3.0.0",
+    "commander": "^4.1.1",
+    "download-git-repo": "^3.0.2",
+    "ini": "^1.3.5",
+    "inquirer": "^7.0.6",
+    "log-symbols": "^3.0.0",
+    "ora": "^4.0.3"
+  }
+}
