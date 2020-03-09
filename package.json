@@ -8,6 +8,7 @@
     "cy": "./bin/www.js"
   },
   "scripts": {
+    "nodemon": "nodemon src/index.js -i temp",
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
     "link": "npm link cy-react-native-cli",
