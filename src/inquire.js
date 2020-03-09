@@ -1,16 +1,6 @@
 /**
  * Created by en20 on 2020/3/9.
  */
-
-console.log(`
- ██████╗██╗   ██╗      ██████╗██╗     ██╗
-██╔════╝╚██╗ ██╔╝     ██╔════╝██║     ██║
-██║      ╚████╔╝█████╗██║     ██║     ██║
-██║       ╚██╔╝ ╚════╝██║     ██║     ██║
-╚██████╗   ██║        ╚██████╗███████╗██║
- ╚═════╝   ╚═╝         ╚═════╝╚══════╝╚═╝
-`)
-
 const inquirer = require('inquirer')
 // Node colorful always
 
@@ -52,23 +42,23 @@ const questions = [
                 // key 必须是单个字母
                 key: 'y',
                 name: 'Overwrite',
-                value: 'overwrite',
+                value: 'overwrite'
             },
             {
                 key: 'o',
                 name: 'Overwrite this one and all next',
-                value: 'overwrite_all',
+                value: 'overwrite_all'
             },
             {
                 key: 'd',
                 name: 'Show diff',
-                value: 'diff',
+                value: 'diff'
             },
             {
                 key: 'x',
                 name: 'Abort',
-                value: 'abort',
-            },
+                value: 'abort'
+            }
         ],
         default: 'y',
     },
