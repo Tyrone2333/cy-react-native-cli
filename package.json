@@ -12,6 +12,7 @@
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
     "link": "npm link cy-react-native-cli",
+    "git-push": "git push origin --all",
     "ppppp?": "eos config set"
   },
   "author": "",

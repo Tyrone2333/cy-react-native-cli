@@ -24,6 +24,8 @@ const remove = require('./utils/remove')
 var shell = require('shelljs');
 const ora = require('ora')
 const childProcess = require('child_process');
+
+const execSh = require('./lib/exec-sh')
 // 要创建的项目名
 let projectName = ''
 
@@ -72,9 +74,12 @@ if (list.length) {  // 如果当前目录不为空
     })) {
         console.log(`项目${projectName}已经存在`)
         // remove(path.resolve(process.cwd(), projectName))
-        fs.emptyDir(path.resolve(process.cwd()))
-        remove(path.resolve(process.cwd(), projectName))
-        // return;
+
+        // todo 询问是否移除
+        // 备份
+        // fs.emptyDir(path.resolve(process.cwd()))
+        // remove(path.resolve(process.cwd(), projectName))
+
 
     }
     rootName = projectName
@@ -100,7 +105,13 @@ if (list.length) {  // 如果当前目录不为空
 //
 // console.log(pp.toString())
 
+// execSh('expo init AwesomeProject')
+console.log(111111)
 
+execSh('npx react-native init ttt')
+
+console.log(222222222222)
+return
 
 next && go()
 
@@ -108,6 +119,7 @@ function go() {
     next
         .then(projectRoot => {
             if (projectRoot !== '.') {
+
                 fs.mkdirSync(projectRoot)
             }
             // 仅测试,不用重复下载
