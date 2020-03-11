@@ -8,7 +8,7 @@
     "cy": "./bin/www.js"
   },
   "scripts": {
-    "nodemon": "nodemon src/index.js -i temp",
+    "nodemon": "cd temp && nodemon --ignore ./temp ./src/index.js init ttt ",
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
     "link": "npm link cy-react-native-cli",
@@ -22,10 +22,14 @@
     "chalk": "^3.0.0",
     "commander": "^4.1.1",
     "download-git-repo": "^3.0.2",
+    "glob": "^7.1.6",
+    "handlebars": "^4.7.3",
     "ini": "^1.3.5",
     "inquirer": "^7.0.6",
     "log-symbols": "^3.0.0",
-    "ora": "^4.0.3"
+    "metalsmith": "^2.3.0",
+    "ora": "^4.0.3",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "fs-extra": "^8.1.0"
