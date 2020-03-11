@@ -23,7 +23,7 @@ react-native-cli
 
 无法在文件的字符串中找到需要插入的特定位置
 
-
+react-native 初始化完毕应该要 git commit 保存一遍,以防原生代码被修改无法找回
 
 // cwd是指当前node命令执行时所在的文件夹目录
 // __dirname是指被执行js文件所在的文件夹目录

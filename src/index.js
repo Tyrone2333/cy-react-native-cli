@@ -21,9 +21,10 @@ const download = require('./utils/download.js')
 const inquirer = require('inquirer')
 const generator = require('./utils/generator')
 const remove = require('./utils/remove')
-var shell = require('shelljs');
+var shell = require('shelljs')
 const ora = require('ora')
-const childProcess = require('child_process');
+const childProcess = require('child_process')
+const logSymbols = require('log-symbols')
 
 const execSh = require('./lib/exec-sh')
 // 要创建的项目名
@@ -64,27 +65,47 @@ if (!projectName) {  // project-name 必填
 const list = glob.sync('*')  // 遍历当前目录
 
 let next = undefined
-
 let rootName = path.basename(process.cwd())
-if (list.length) {  // 如果当前目录不为空
+console.log(list, rootName, projectName)
+// 如果当前目录不为空
+if (list.length) {
     if (list.some(n => {
         const fileName = path.resolve(process.cwd(), n)
         const isDir = fs.statSync(fileName).isDirectory()
         return projectName === n && isDir
     })) {
-        console.log(`项目${projectName}已经存在`)
-        // remove(path.resolve(process.cwd(), projectName))
+        // 目录非空,询问是否移除
+        next = inquirer.prompt([
+            {
+                name: 'deleteExist',
+                message: `项目 ${projectName} 已经存在,是否删除?`,
+                type: 'confirm',
+                // todo 测试,默认不删
+                default: false,
+            },
+        ]).then(answer => {
+            console.log(answer)
 
-        // todo 询问是否移除
+            if (answer.deleteExist) {
+                fs.emptyDir(path.resolve(process.cwd(), projectName))
+            } else {
+                // todo 识别是否为 react-native 项目,不是的话退出
+            }
+            rootName = projectName
+            return Promise.resolve(projectName)
+        })
+
         // 备份
         // fs.emptyDir(path.resolve(process.cwd()))
         // remove(path.resolve(process.cwd(), projectName))
 
-
+    } else {
+        rootName = projectName
+        next = Promise.resolve(projectName)
     }
-    rootName = projectName
-    next = Promise.resolve(projectName)
+
 } else if (rootName === projectName) {
+    console.log(rootName, projectName)
     rootName = '.'
     next = inquirer.prompt([
         {
@@ -101,53 +122,36 @@ if (list.length) {  // 如果当前目录不为空
     next = Promise.resolve(projectName)
 }
 
-// let pp = fs.readFileSync(path.join(__dirname,'./cmder.js') )
-//
-// console.log(pp.toString())
-
-// execSh('expo init AwesomeProject')
-console.log(111111)
-
-execSh('npx react-native init ttt')
-
-console.log(222222222222)
-return
-
 next && go()
 
 function go() {
-    next
-        .then(projectRoot => {
-            if (projectRoot !== '.') {
+    next.then(projectRoot => {
+        if (projectRoot !== '.') {
 
-                fs.mkdirSync(projectRoot)
-            }
-            // 仅测试,不用重复下载
+            fs.ensureDir(projectRoot)
+        }
+        // 仅测试,不用重复下载
+        return {
+            name: projectRoot,
+            root: projectRoot,
+            downloadTemp: path.join(__dirname, '../template'),
+        }
+
+        return download(projectRoot).then(target => {
+            console.log(target)
             return {
                 name: projectRoot,
                 root: projectRoot,
-                downloadTemp: path.join(__dirname, '../dist') ,
+                downloadTemp: target,
             }
-
-            return download(projectRoot).then(target => {
-                console.log(target)
-                return {
-                    name: projectRoot,
-                    root: projectRoot,
-                    downloadTemp: target,
-                }
-            })
         })
+    })
         .then(context => {
             return inquirer.prompt([
                 {
                     name: 'projectName',
                     message: '项目的名称',
                     default: context.name,
-                }, {
-                    name: 'projectVersion',
-                    message: '项目的版本号',
-                    default: '1.0.0',
                 }, {
                     name: 'projectDescription',
                     message: '项目的简介',
@@ -169,6 +173,20 @@ function go() {
             })
         })
         .then(context => {
+            // 生成 react-native,或使用已存在的 react-native 项目
+            // // execSh.promise('npx react-native init  ' + projectName)
+            // execSh.promise('react-native').then((res) => {
+            //     console.log(res)
+            //     console.log(333)
+            // }).catch((res) => {
+            //     console.error(res)
+            //     console.error(logSymbols.error, chalk.red(`react-native 安装失败,程序退出`))
+            //     process.exit(1)
+            // })
+            return Promise.resolve(context)
+        })
+        .then(context => {
+            console.log(context)
             //删除临时文件夹，将文件移动到目标目录下
             return generator(context)
         })
@@ -176,12 +194,11 @@ function go() {
             // 成功用绿色显示，给出积极的反馈
             console.log(chalk.green('创建成功:)'))
             console.log(chalk.green('cd ' + context.root + '\nnpm install\nnpm run dev'))
-        })
-        .catch(err => {
-            // 失败了用红色，增强提示
-            console.log(err)
-            console.error(chalk.red(`创建失败：${err.message}`))
-        })
+        }).catch(err => {
+        // 失败了用红色，增强提示
+        console.log(err)
+        console.error(chalk.red(`创建失败：${err.message}`))
+    })
 }
 
 // console.log(' chdir - %s ', program.chdir)

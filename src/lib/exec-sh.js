@@ -8,7 +8,6 @@ var defSpawnOptions = { stdio: 'inherit' }
  * @returns {Object}
  */
 function getShell () {
-    console.log(process.platform )
     if (process.platform === 'win32') {
         return { cmd: 'cmd', arg: '/C' }
     } else {
