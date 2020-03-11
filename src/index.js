@@ -84,8 +84,6 @@ if (list.length) {
                 default: false,
             },
         ]).then(answer => {
-            console.log(answer)
-
             if (answer.deleteExist) {
                 fs.emptyDir(path.resolve(process.cwd(), projectName))
             } else {
@@ -147,6 +145,7 @@ function go() {
         })
     })
         .then(context => {
+            // 询问一些项目情况
             return inquirer.prompt([
                 {
                     name: 'projectName',
@@ -172,21 +171,45 @@ function go() {
                 }
             })
         })
-        .then(context => {
-            // 生成 react-native,或使用已存在的 react-native 项目
-            // // execSh.promise('npx react-native init  ' + projectName)
-            // execSh.promise('react-native').then((res) => {
-            //     console.log(res)
-            //     console.log(333)
-            // }).catch((res) => {
-            //     console.error(res)
-            //     console.error(logSymbols.error, chalk.red(`react-native 安装失败,程序退出`))
-            //     process.exit(1)
-            // })
+        .then(async context => {
+
+            // 遍历目标目录
+            const list = glob.sync(projectName + '/*')
+
+            // 当前已经有文件
+            if (list.length) {
+                return Promise.resolve(context)
+            } else {
+                // 如果是空目录就初始化 react-native
+                await execSh.promise('npx react-native init  ' + projectName).catch((res) => {
+                    console.error(res)
+                    console.error(logSymbols.error, chalk.red(`react-native 安装失败,程序退出`))
+                    process.exit(1)
+                })
+                console.log(333)
+                return Promise.resolve(context)
+            }
+        })
+        .then(async context => {
+            // git commit 保存一下
+
+            // 这里改变 node 命令执行时所在的文件夹目录! 这里的改变很重要!!! 当前已经 cd 进入了目标目录
+            shell.cd(projectName)
+
+            let hasGit = await fs.pathExists('.git')
+            // 没有 git 仓库
+            if (!hasGit) {
+                await execSh('git  init')
+                await execSh('git  add .')
+                await execSh('git commit -m init')
+                console.error(logSymbols.success, chalk.green(`git 仓库创建完成`))
+            }
+
+            // 退回初始的命令执行目录
+            shell.cd('..')
             return Promise.resolve(context)
         })
         .then(context => {
-            console.log(context)
             //删除临时文件夹，将文件移动到目标目录下
             return generator(context)
         })

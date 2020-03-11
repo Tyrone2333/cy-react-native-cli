@@ -98,4 +98,7 @@ execSh.promise = function (command, options) {
     })
 }
 
-module.exports = execSh
+let esh = execSh.promise
+esh.async = execSh
+esh.promise = execSh.promise
+module.exports = esh
