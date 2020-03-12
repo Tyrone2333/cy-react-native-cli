@@ -1,0 +1,13 @@
+
+{
+  "restartable": "rs",
+  "verbose": true,
+  "watch": [
+    "src/*"
+  ],
+  "ignore": [
+    "temp/*"
+  ],
+  "exec": "node src/index.js init ttt -y "
+
+}

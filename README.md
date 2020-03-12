@@ -2,7 +2,13 @@
 根据官方的 `react-native init AwesomeProject` 生成项目,集成`mobx`,`react-native-router-flux`路由,`react-native-root-toast`弹窗.
 
 # 开发
-    "nodemon": "cd temp && nodemon ../src/index.js -i temp --watch ../",
+    "nodemon": " todo ",
+    
+你需要进入一个无关的目录,如果在当前目录下测试会因为生成的文件夹里有 .git 导致本项目 git diff 被污染
+
+    "nodemon4": "g: && cd g:\\Temp\\aaa && nodemon --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\src\\* E:\\enzo\\code\\android\\cy-cli\\src\\index.js init ttt -y ",
+
+
 #### script 说明
 - nodemon : 进入 temp 目录执行 `../src/index.js` 监听 `cy-react-native-cli` 所有文件变更,除了 temp 目录
 - 

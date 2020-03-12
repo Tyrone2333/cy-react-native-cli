@@ -8,7 +8,9 @@
     "cy": "./bin/www.js"
   },
   "scripts": {
-    "nodemon": "cd temp && nodemon --ignore ./temp ./src/index.js init ttt ",
+    "nodemon": "cd temp && nodemon --ignore ../temp/*  --watch ../src/* ../src/index.js init ttt -y ",
+    "nodemon3": "cd temp && nodemon --config ../nodemon.json ",
+    "nodemon4": "g: && cd g:\\Temp\\aaa && nodemon --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\src\\* E:\\enzo\\code\\android\\cy-cli\\src\\index.js init ttt -y ",
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
     "link": "npm link cy-react-native-cli",
