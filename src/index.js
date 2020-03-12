@@ -205,14 +205,39 @@ function go() {
                 console.error(logSymbols.success, chalk.green(`git 仓库创建完成`))
             }
 
-            // 退回初始的命令执行目录
-            shell.cd('..')
             return Promise.resolve(context)
         })
-        .then(context => {
-            //删除临时文件夹，将文件移动到目标目录下
-            return generator(context)
-        })
+        .then(async context => {
+            // 读取 package.json,修改内容
+
+            // let rnPkg = await fs.readJson(`./${projectName}/package.json`)
+            let rnPkg = await fs.readJson(`./package.json`)
+            console.log(rnPkg)
+
+            let packageMap = require(path.join(__dirname, '../template/packageMap'))
+            console.log(packageMap)
+            // 替换 package.json 中的脚本
+            rnPkg.scripts = packageMap
+
+            // todo 安装各种插件,添加 -y 的命令行
+
+
+            // todo 有个问题,json 没有格式化
+            await fs.writeJson(`./package.json`, rnPkg,{
+                spaces: 2
+            })
+
+            // 退回初始的命令执行目录
+            shell.cd('..')
+
+            return Promise.resolve(context)
+
+            return Promise.reject('reject')
+
+        }).then(context => {
+        //删除临时文件夹，将文件移动到目标目录下
+        return generator(context)
+    })
         .then(context => {
             // 成功用绿色显示，给出积极的反馈
             console.log(chalk.green('创建成功:)'))

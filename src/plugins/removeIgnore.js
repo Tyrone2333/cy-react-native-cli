@@ -10,7 +10,7 @@ let removeIgnore = (src) => {
 
     return function (files, metalsmith, done) {
         // 判断下载的项目模板中是否有templates.ignore
-        const ignoreFile = path.resolve(process.cwd(), path.join(src, 'templates.ignore'))
+        const ignoreFile = path.resolve(process.cwd(), path.join(src, 'template.ignore'))
 
         if (fs.existsSync(ignoreFile)) {
             // 定义一个用于移除模板中被忽略文件的metalsmith插件
