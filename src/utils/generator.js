@@ -31,7 +31,7 @@ module.exports = function (context) {
                 Object.keys(files).forEach(async fileName => {
 
                     // 指定格式的文件才用模版编译
-                    let reg = new RegExp(/\.(js|md|json)/)
+                    let reg = new RegExp(/\.(js|md|json|gradle|xml)/)
                     let content = files[fileName].contents.toString() // 获取文件中的内容
 
                     if (reg.test(fileName)) {

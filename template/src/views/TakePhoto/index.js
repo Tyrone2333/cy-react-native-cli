@@ -19,7 +19,8 @@ export default class TakePhoto extends Component {
         }
     }
 
-    componentDidMount(): void {}
+    componentDidMount(): void {
+    }
 
     render() {
         return (
@@ -36,10 +37,12 @@ export default class TakePhoto extends Component {
                             this.ActionSheetUploadSample.showActionSheet(
                                 res => {
                                     console.log(res)
-                                    this.setState({
-                                        imgUri: res.uri,
-                                        photos: res,
-                                    })
+                                    if (!res instanceof Error) {
+                                        this.setState({
+                                            imgUri: res.uri,
+                                            photos: res,
+                                        })
+                                    }
                                 },
                             )
                         }}

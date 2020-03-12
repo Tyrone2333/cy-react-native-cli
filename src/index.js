@@ -28,6 +28,9 @@ const logSymbols = require('log-symbols')
 
 const execSh = require('./lib/exec-sh')
 const utils = require('./utils/utils')
+let packageMap = require(path.join(__dirname, '../template/packageMap'))
+
+
 // 要创建的项目名
 let projectName = ''
 // 不出现询问,所有选项都按默认
@@ -158,7 +161,21 @@ function go() {
                     name: 'projectDescription',
                     message: '项目的简介',
                     default: `A project named ${context.name}`,
+                }, {
+                    type: 'checkbox',
+                    name: 'dependencies',
+                    message: '请选择需要集成的插件',
+                    choices: [
+                        {
+                            name: 'react-native-syan-image-picker(图片选择,拍照)',
+                            value: 'react-native-syan-image-picker',
+                            checked: true,
+                        },
+                        'react-native-general-actionsheet',
+                    ],
+                    default: ['react-native-syan-image-picker'],
                 },
+                // react-native-syan-image-picker
             ]
             if (yesForAll) {
                 let answers = utils.getPromptDefaultAnswer(prompts)
@@ -216,30 +233,79 @@ function go() {
         })
         // 读取 package.json,修改内容
         .then(async context => {
+            console.log('context', context)
 
-            // let rnPkg = await fs.readJson(`./${projectName}/package.json`)
             let rnPkg = await fs.readJson(`./package.json`)
 
-            let packageMap = require(path.join(__dirname, '../template/packageMap'))
-
             // 替换 package.json 中的脚本
-            rnPkg.scripts = packageMap
+            rnPkg.scripts = packageMap.scripts
 
             // todo 安装各种插件,添加 -y 的命令行
 
+            // 写入 json
             await fs.writeJson(`./package.json`, rnPkg, {
                 spaces: 2,
             })
+            let metadata = context.metadata
+            let installDependenciesCmd = 'yarn add'
 
-            // 退回初始的命令执行目录
-            shell.cd('..')
+            // 必装依赖项
+            let dependencies = packageMap.dependencies
+            for (let depName in dependencies) {
+                let version = dependencies[depName].replace(/\^/, '')
+                if (!utils.isItInstalled(depName, rnPkg)) {
+                    // 为防止出事,版本号都固定
+                    installDependenciesCmd += ` ${depName}@${version} `
+                }
+
+            }
+
+            // 可选依赖性,用户有选的插件才添加.
+            let optionalDependencies = packageMap.optionalDependencies
+            for (let depName in optionalDependencies) {
+                let version = optionalDependencies[depName].replace(/\^/, '')
+
+                if (metadata && metadata.dependencies && metadata.dependencies.includes(depName)) {
+                    if (!utils.isItInstalled(depName, rnPkg)) {
+                        // 为防止出事,版本号都固定
+                        installDependenciesCmd += ` ${depName}@${version} `
+                    }
+                }
+            }
+
+            console.log(
+                installDependenciesCmd,
+            )
+            console.log(
+                // packageMap.dependencies
+            )
+
+            // console.log(rnPkg)
+
+
+            // return Promise.reject('reject')
+
+            // 如果有需要执行依赖安装命令
+            installDependenciesCmd.length > 8 && await execSh.promise(installDependenciesCmd).catch((res) => {
+                console.error(res)
+                console.error(logSymbols.error, chalk.red(`插件依赖安装失败,程序退出`))
+                process.exit(1)
+            })
 
             return Promise.resolve(context)
 
             return Promise.reject('reject')
 
         })
-        //删除临时文件夹，将文件移动到目标目录下
+        //
+        .then(context => {
+            // 退回初始的命令执行目录
+            shell.cd('..')
+            return Promise.resolve(context)
+
+
+        })
+        // 删除临时文件夹，将文件移动到目标目录下
         .then(context => {
             return generator(context)
         })
@@ -250,7 +316,7 @@ function go() {
         }).catch(err => {
         // 失败了用红色，增强提示
         console.log(err)
-        console.error(chalk.red(`创建失败：${err.message}`))
+        console.error(logSymbols.error, chalk.red(`创建项目失败`))
     })
 }
 
