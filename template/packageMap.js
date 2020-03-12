@@ -10,7 +10,7 @@ module.exports = {
     "open-debug-folder": "start android\\app\\build\\outputs\\apk\\debug",
     "release": "cd android && ./gradlew assembleRelease && npm run open-release-folder",
     "release-test": "react-native run-android --variant=release",
-    "pod-install": "cd ios && pod install",
+    "pod-install": "cd ios && pod install --verbose --no-repo-update",
     "test": "jest",
     "git-reset-master": "git reset master --hard",
     "git-push-master": "git push origin master",

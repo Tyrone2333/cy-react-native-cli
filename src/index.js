@@ -27,9 +27,11 @@ const childProcess = require('child_process')
 const logSymbols = require('log-symbols')
 
 const execSh = require('./lib/exec-sh')
+const utils = require('./utils/utils')
 // 要创建的项目名
 let projectName = ''
-
+// 不出现询问,所有选项都按默认
+let yesForAll = false
 program
     .version('0.0.1', '-v, --version')
     .usage('test')
@@ -37,6 +39,7 @@ program
     .option('-c, --config [value]', '设置配置文件', './deploy.conf')
     .option('-m, --max <n>', '最大连接数', parseInt)
     .option('-s, --seed <n>', '出始种子', parseFloat)
+    .option('-y, --yes', '不出现询问,所有选项都按默认')
 
 // init,创建 react-native 项目.测试先复制目录
 
@@ -53,7 +56,7 @@ program
     })
 
 program.parse(process.argv)
-
+yesForAll = program.yes
 
 if (!projectName) {  // project-name 必填
     // 相当于执行命令的--help选项，显示help信息，这是commander内置的一个命令选项
@@ -66,7 +69,7 @@ const list = glob.sync('*')  // 遍历当前目录
 
 let next = undefined
 let rootName = path.basename(process.cwd())
-console.log(list, rootName, projectName)
+console.log('list, rootName, projectName', list, rootName, projectName)
 // 如果当前目录不为空
 if (list.length) {
     if (list.some(n => {
@@ -74,24 +77,29 @@ if (list.length) {
         const isDir = fs.statSync(fileName).isDirectory()
         return projectName === n && isDir
     })) {
-        // 目录非空,询问是否移除
-        next = inquirer.prompt([
-            {
-                name: 'deleteExist',
-                message: `项目 ${projectName} 已经存在,是否删除?`,
-                type: 'confirm',
-                // todo 测试,默认不删
-                default: false,
-            },
-        ]).then(answer => {
-            if (answer.deleteExist) {
-                fs.emptyDir(path.resolve(process.cwd(), projectName))
-            } else {
-                // todo 识别是否为 react-native 项目,不是的话退出
-            }
+        if (yesForAll) {
             rootName = projectName
-            return Promise.resolve(projectName)
-        })
+            next = Promise.resolve(projectName)
+        } else {
+            // 目录非空,询问是否移除
+            next = inquirer.prompt([
+                {
+                    name: 'deleteExist',
+                    message: `项目 ${projectName} 已经存在,是否删除?`,
+                    type: 'confirm',
+                    // todo 测试,默认不删
+                    default: false,
+                },
+            ]).then(answer => {
+                if (answer.deleteExist) {
+                    fs.emptyDir(path.resolve(process.cwd(), projectName))
+                } else {
+                    // todo 识别是否为 react-native 项目,不是的话退出
+                }
+                rootName = projectName
+                return Promise.resolve(projectName)
+            })
+        }
 
         // 备份
         // fs.emptyDir(path.resolve(process.cwd()))
@@ -103,7 +111,7 @@ if (list.length) {
     }
 
 } else if (rootName === projectName) {
-    console.log(rootName, projectName)
+    console.log('rootName, projectName', rootName, projectName)
     rootName = '.'
     next = inquirer.prompt([
         {
@@ -146,7 +154,7 @@ function go() {
     })
         .then(context => {
             // 询问一些项目情况
-            return inquirer.prompt([
+            let prompts = [
                 {
                     name: 'projectName',
                     message: '项目的名称',
@@ -155,14 +163,19 @@ function go() {
                     name: 'projectDescription',
                     message: '项目的简介',
                     default: `A project named ${context.name}`,
-                }, {
-                    name: 'supportMacawAdmin',
-                    message: '开启登陆模块',
-                    default: "No",
                 },
-            ]).then(answers => {
-                let v = answers.supportMacawAdmin.toUpperCase()
-                answers.supportMacawAdmin = v === "YES" || v === "Y"
+            ]
+            if (yesForAll) {
+                let answers = utils.getPromptDefaultAnswer(prompts)
+                // 不询问直接 resolve
+                return Promise.resolve({
+                    ...context,
+                    metadata: {
+                        ...answers,
+                    },
+                })
+            }
+            return inquirer.prompt(prompts).then(answers => {
                 return {
                     ...context,
                     metadata: {
@@ -172,7 +185,6 @@ function go() {
             })
         })
         .then(async context => {
-
             // 遍历目标目录
             const list = glob.sync(projectName + '/*')
 
@@ -212,10 +224,9 @@ function go() {
 
             // let rnPkg = await fs.readJson(`./${projectName}/package.json`)
             let rnPkg = await fs.readJson(`./package.json`)
-            console.log(rnPkg)
 
             let packageMap = require(path.join(__dirname, '../template/packageMap'))
-            console.log(packageMap)
+
             // 替换 package.json 中的脚本
             rnPkg.scripts = packageMap
 
@@ -223,8 +234,8 @@ function go() {
 
 
             // todo 有个问题,json 没有格式化
-            await fs.writeJson(`./package.json`, rnPkg,{
-                spaces: 2
+            await fs.writeJson(`./package.json`, rnPkg, {
+                spaces: 2,
             })
 
             // 退回初始的命令执行目录

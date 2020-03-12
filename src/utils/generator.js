@@ -5,6 +5,8 @@ const fs = require("fs")
 const path = require("path")
 const removeIgnore = require("../plugins/removeIgnore")
 let {render} = require('consolidate').ejs
+const ora = require('ora')
+const utils = require("../utils/utils")
 
 module.exports = function (context) {
     let metadata = context.metadata
@@ -26,7 +28,6 @@ module.exports = function (context) {
 
             .use((files, metalsmith, done) => {
                 const meta = metalsmith.metadata()
-                console.log(meta)
                 Object.keys(files).forEach(async fileName => {
 
                     // 指定格式的文件才用模版编译
@@ -35,7 +36,7 @@ module.exports = function (context) {
 
                     if (reg.test(fileName)) {
                         if (content.includes('<%')) { // 文件中用<% 我才需要编译
-                            console.log(fileName + ' 编译中')
+                            console.log(fileName + ' --- 编译中')
                             content = await render(content, meta) // 用数据渲染模板
                             files[fileName].contents = Buffer.from(content) // 渲染好的结果替换即可
                         }
