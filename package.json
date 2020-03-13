@@ -1,6 +1,6 @@
 {
   "name": "cy-react-native-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "创建 react-native 项目的 cli 工具",
   "main": "bin/www.js",
   "bin": {
@@ -18,8 +18,12 @@
     "publish": "npm publish",
     "ppppp?": "eos config set"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "en20",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/yang_update/cy-cli.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-env": "^2.4.1",
@@ -34,9 +38,9 @@
     "log-symbols": "^3.0.0",
     "metalsmith": "^2.3.0",
     "ora": "^4.0.3",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "fs-extra": "^8.1.0"
   },
   "devDependencies": {
-    "fs-extra": "^8.1.0"
   }
 }
