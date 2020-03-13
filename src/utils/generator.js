@@ -23,6 +23,7 @@ module.exports = function (context) {
             .source(src)
             .destination(dest)
 
+
             // 使用一个一个插件处理,把它们连在一起
             .use(removeIgnore(src))
 
@@ -31,7 +32,7 @@ module.exports = function (context) {
                 Object.keys(files).forEach(async fileName => {
 
                     // 指定格式的文件才用模版编译
-                    let reg = new RegExp(/\.(js|md|json|gradle|xml)/)
+                    let reg = new RegExp(/\.(js|md|json|gradle|xml|java)/)
                     let content = files[fileName].contents.toString() // 获取文件中的内容
 
                     if (reg.test(fileName)) {

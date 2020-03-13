@@ -132,7 +132,10 @@ function go() {
     next.then(projectRoot => {
         if (projectRoot !== '.') {
 
-            fs.ensureDir(projectRoot)
+
+            // todo 不应该创建文件夹,交给 react-native
+            // 要全局装 react-native 命令
+            // fs.ensureDir(projectRoot)
         }
         // 仅测试,不用重复下载
         return {
@@ -173,7 +176,7 @@ function go() {
                         },
                         'react-native-general-actionsheet',
                     ],
-                    default: ['react-native-syan-image-picker'],
+                    default: ['react-native-general-actionsheet','react-native-syan-image-picker', ],
                 },
                 // react-native-syan-image-picker
             ]
@@ -220,7 +223,7 @@ function go() {
             // 这里改变 node 命令执行时所在的文件夹目录! 这里的改变很重要!!! 当前已经 cd 进入了目标目录
             shell.cd(projectName)
 
-            let hasGit = await fs.pathExists('.git')
+            let hasGit = fs.pathExistsSync('.git')
             // 没有 git 仓库
             if (!hasGit) {
                 await execSh('git  init')
@@ -233,7 +236,7 @@ function go() {
         })
         // 读取 package.json,修改内容
         .then(async context => {
-            console.log('context', context)
+            // console.log('context', context)
 
             let rnPkg = await fs.readJson(`./package.json`)
 

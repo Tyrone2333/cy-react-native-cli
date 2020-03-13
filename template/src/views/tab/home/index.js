@@ -62,10 +62,12 @@ export default class Home extends Component {
                     onPress={() => this.toA()}
                     title="去往 TTTTTTTest 页面"
                 />
+                <% if (dependencies.includes('react-native-syan-image-picker')) { %>
                 <Button
                     onPress={() => Actions.jump('TakePhoto')}
                     title="去往 拍照 页面"
                 />
+                <% } %>
                 <YButton
                     onPress={() => this.apiTest()}
                     isLoading={this.state.wait}

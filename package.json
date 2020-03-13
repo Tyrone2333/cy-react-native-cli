@@ -1,7 +1,7 @@
 {
   "name": "cy-react-native-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "创建 react-native 项目的 cli 工具",
   "main": "bin/www.js",
   "bin": {
     "cy-cli": "./bin/www.js",
@@ -10,7 +10,7 @@
   "scripts": {
     "nodemon": "cd temp && nodemon --ignore ../temp/*  --watch ../src/* ../src/index.js init ttt -y ",
     "nodemon3": "cd temp && nodemon --config ../nodemon.json ",
-    "nodemon4": "g: && cd g:\\Temp\\aaa && nodemon --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\src\\* E:\\enzo\\code\\android\\cy-cli\\src\\index.js init aaa -c -y",
+    "nodemon4": "g: && cd g:\\Temp\\aaa && nodemon --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\* E:\\enzo\\code\\android\\cy-cli\\src\\index.js init aaa -c -y",
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
     "link": "npm link cy-react-native-cli",
@@ -29,7 +29,6 @@
     "ejs": "^3.0.1",
     "glob": "^7.1.6",
     "handlebars": "^4.7.3",
-    "ini": "^1.3.5",
     "inquirer": "^7.0.6",
     "log-symbols": "^3.0.0",
     "metalsmith": "^2.3.0",

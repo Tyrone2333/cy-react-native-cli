@@ -1,2 +1,10 @@
 packageMap.js
 template.ignore
+
+    #;;
+<% if (!dependencies.includes('react-native-syan-image-picker')) { %>
+    src/views/TakePhoto
+<% } %>
+
+# 可以过滤文件夹
+# src/components
