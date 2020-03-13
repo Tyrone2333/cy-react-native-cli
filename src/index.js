@@ -176,7 +176,7 @@ function go() {
                         },
                         'react-native-general-actionsheet',
                     ],
-                    default: ['react-native-general-actionsheet','react-native-syan-image-picker', ],
+                    default: [ ],
                 },
                 // react-native-syan-image-picker
             ]

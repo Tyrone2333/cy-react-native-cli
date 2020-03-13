@@ -8,5 +8,4 @@ template.ignore
     src/views/TakePhoto
 <% } %>
 
-MainActivity.java
-MainApplication.java
+dynamicPathFile/

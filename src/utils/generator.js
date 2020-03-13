@@ -4,7 +4,7 @@ const remove = require("./remove")
 const fs = require("fs")
 const path = require("path")
 const removeIgnore = require("../plugins/removeIgnore")
-const copyMainJava = require("../plugins/copyMainJava")
+const copyDynamicPathFile = require("../plugins/copyDynamicPathFile")
 let {render} = require('consolidate').ejs
 const ora = require('ora')
 const utils = require("../utils/utils")
@@ -26,7 +26,7 @@ module.exports = function (context) {
 
 
             // 复制动态路径里的内容
-            .use(copyMainJava(src))
+            .use(copyDynamicPathFile(src))
 
             // 使用一个一个插件处理,把它们连在一起
             .use(removeIgnore(src))
