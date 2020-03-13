@@ -4,6 +4,7 @@ const remove = require("./remove")
 const fs = require("fs")
 const path = require("path")
 const removeIgnore = require("../plugins/removeIgnore")
+const copyMainJava = require("../plugins/copyMainJava")
 let {render} = require('consolidate').ejs
 const ora = require('ora')
 const utils = require("../utils/utils")
@@ -24,6 +25,9 @@ module.exports = function (context) {
             .destination(dest)
 
 
+            // 复制动态路径里的内容
+            .use(copyMainJava(src))
+
             // 使用一个一个插件处理,把它们连在一起
             .use(removeIgnore(src))
 
@@ -32,7 +36,7 @@ module.exports = function (context) {
                 Object.keys(files).forEach(async fileName => {
 
                     // 指定格式的文件才用模版编译
-                    let reg = new RegExp(/\.(js|md|json|gradle|xml|java)/)
+                    let reg = new RegExp(/\.(js|md|json|gradle|xml|java|plist|m|h)/)
                     let content = files[fileName].contents.toString() // 获取文件中的内容
 
                     if (reg.test(fileName)) {

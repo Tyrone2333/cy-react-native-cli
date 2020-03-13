@@ -1,10 +1,12 @@
+# 这是一行注释
+
 packageMap.js
 template.ignore
 
-    #;;
+# react-native-syan-image-picker 相关文件夹不输出
 <% if (!dependencies.includes('react-native-syan-image-picker')) { %>
     src/views/TakePhoto
 <% } %>
 
-# 可以过滤文件夹
-# src/components
+MainActivity.java
+MainApplication.java

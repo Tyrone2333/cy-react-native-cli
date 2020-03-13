@@ -18,7 +18,7 @@ let removeIgnore = (src) => {
             const meta = metalsmith.metadata()
             // 先对ignore文件进行渲染，然后按行切割ignore文件的内容，拿到被忽略清单
             let content = await render(fs.readFileSync(ignoreFile).toString(), meta) // 用数据渲染模板
-            console.log(content.split('\n'))
+
             const ignores = content.split('\n')
                 // 去掉空格,把 / 换成 //
                 .map(s => s.trim().replace(/\//g, "\\"))
@@ -28,7 +28,7 @@ let removeIgnore = (src) => {
                 .filter(item => /^(?!#)/.test(item))
 
             //删除被忽略的文件
-            console.log('ignores', ignores)
+            // console.log('ignores', ignores)
             // console.log('files', Object.keys(files) )
             for (let ignorePattern of ignores) {
                 let reg = new RegExp('^' + ignorePattern.replace(/\\/g, `\\\\`))
