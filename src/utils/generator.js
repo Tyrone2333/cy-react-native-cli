@@ -41,16 +41,12 @@ module.exports = function (context) {
 
                     if (reg.test(fileName)) {
                         if (content.includes('<%')) { // 文件中用<% 我才需要编译
-                            console.log(fileName + ' --- 编译中')
+                            // console.log(fileName + ' --- 编译中')
                             content = await render(content, meta) // 用数据渲染模板
                             files[fileName].contents = Buffer.from(content) // 渲染好的结果替换即可
                         }
                     }
 
-                    // console.log(files[fileName])
-                    // const t = files[fileName].contents.toString()
-                    // console.log(fileName)
-                    // files[fileName].contents = Buffer.from(Handlebars.compile(t)(meta))
                 })
                 done()
             }).build(err => {

@@ -28,8 +28,9 @@ import TransparentNavBar from './TransparentNavBar'
 import ImgNavBar from './ImgNavBar'
 
 import TTTTTTTest from '../views/TTTTTTTest'
+<% if (dependencies.includes('react-native-syan-image-picker')) { %>
 import TakePhoto from '../views/TakePhoto'
-
+<% } %>
 import Home from '../views/tab/home'
 import Mine from '../views/tab/Mine'
 
@@ -124,12 +125,14 @@ const Route = () => (
                     component={TTTTTTTest}
                     navBar={CustomNavBar}
                 />
+                <% if (dependencies.includes('react-native-syan-image-picker')) { %>
                 <Scene
                     key="TakePhoto"
                     title="TakePhoto"
                     component={TakePhoto}
                     navBar={CustomNavBar}
                 />
+                <% } %>
             </Modal>
         </Router>
     </SafeAreaView>

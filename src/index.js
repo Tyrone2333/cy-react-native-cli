@@ -36,12 +36,8 @@ let projectName = ''
 // 不出现询问,所有选项都按默认
 let yesForAll = false
 program
-    .version('0.0.1', '-v, --version')
-    .usage('test')
-    .option('-C, --chdir [value]', '设置服务器节点', '/home/conan/server')
-    .option('-c, --config [value]', '设置配置文件', './deploy.conf')
-    .option('-m, --max <n>', '最大连接数', parseInt)
-    .option('-s, --seed <n>', '出始种子', parseFloat)
+    // todo 读取 package.json
+    .version('1.0.1', '-v, --version')
     .option('-y, --yes', '不出现询问,所有选项都按默认')
 
 // init,创建 react-native 项目.测试先复制目录
@@ -72,8 +68,8 @@ const list = glob.sync('*')  // 遍历当前目录
 
 let next = undefined
 let rootName = path.basename(process.cwd())
-console.log('list, rootName, projectName', list, rootName, projectName)
-// 如果当前目录不为空
+// console.log('list, rootName, projectName', list, rootName, projectName)
+// 如果当前目录不为空 todo 必须空,不管其他了,
 if (list.length) {
     if (list.some(n => {
         const fileName = path.resolve(process.cwd(), n)
@@ -172,11 +168,11 @@ function go() {
                         {
                             name: 'react-native-syan-image-picker(图片选择,拍照)',
                             value: 'react-native-syan-image-picker',
-                            checked: true,
+                            checked: false,
                         },
                         'react-native-general-actionsheet',
                     ],
-                    default: [ ],
+                    default: [],
                 },
                 // react-native-syan-image-picker
             ]
@@ -207,6 +203,8 @@ function go() {
             if (list.length) {
                 return Promise.resolve(context)
             } else {
+                console.log(logSymbols.info,chalk.green('安装预计需要 5-10 分钟,请耐心等待'))
+
                 // 如果是空目录就初始化 react-native
                 await execSh.promise('npx react-native init  ' + projectName).catch((res) => {
                     console.error(res)
@@ -315,7 +313,7 @@ function go() {
         // 成功用绿色显示，给出积极的反馈
         .then(context => {
             console.log(chalk.green('创建成功:)'))
-            console.log(chalk.green('cd ' + context.root + '\nnpm install\nnpm run dev'))
+            console.log(chalk.green('cd ' + context.root + '\nyarn run android'))
         }).catch(err => {
         // 失败了用红色，增强提示
         console.log(err)

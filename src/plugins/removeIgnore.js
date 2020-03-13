@@ -35,7 +35,7 @@ let removeIgnore = (src) => {
                 Object.keys(files).forEach((fileName) => {
                     // console.log(reg, reg.test(fileName), fileName)
                     if (reg.test(fileName)) {
-                        console.log('删除', fileName)
+                        // console.log('删除', fileName)
                         delete files[fileName]
                     }
                 })
