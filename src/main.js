@@ -44,7 +44,6 @@ module.exports = async function() {
     let yesForAll = false
 
     program
-        // todo 读取 package.json
         .version(packageJson.version, '-v, --version')
         .option('-y, --yes', '不出现询问,所有选项都按默认')
 
@@ -120,7 +119,7 @@ module.exports = async function() {
     function go() {
         next.then(projectRoot => {
             if (projectRoot !== '.') {
-                // todo 不应该创建文件夹,交给 react-native
+                // 不应该创建文件夹,交给 react-native
                 // 要全局装 react-native 命令
                 // fs.ensureDir(projectRoot)
             }
@@ -195,7 +194,7 @@ module.exports = async function() {
                 })
             })
             .then(async context => {
-                // 遍历目标目录
+                // 遍历目标目录,隐藏文件如 .git 不会被检测到
                 const list = glob.sync(projectName + '/*')
 
                 // 当前已经有文件
@@ -250,8 +249,6 @@ module.exports = async function() {
                 // 替换 package.json 中的脚本
                 rnPkg.scripts = packageMap.scripts
 
-                // todo 安装各种插件,添加 -y 的命令行
-
                 // 写入 json
                 await fs.writeJson('./package.json', rnPkg, {
                     spaces: 2,
@@ -290,11 +287,6 @@ module.exports = async function() {
                 }
 
                 console.log(installDependenciesCmd)
-                console.log()
-
-                // console.log(rnPkg)
-
-                // return Promise.reject('reject')
 
                 // 如果有需要执行依赖安装命令
                 installDependenciesCmd.length > 8 &&
