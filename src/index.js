@@ -63,20 +63,14 @@ if (!projectName) {  // project-name 必填
     return
 }
 
-
-const list = glob.sync('*')  // 遍历当前目录
-
 let next = undefined
 let rootName = path.basename(process.cwd())
-// console.log('list, rootName, projectName', list, rootName, projectName)
-// 如果当前目录不为空 todo 必须空,不管其他了,
-if (list.length) {
-    if (list.some(n => {
-        const fileName = path.resolve(process.cwd(), n)
-        const isDir = fs.statSync(fileName).isDirectory()
-        return projectName === n && isDir
-    })) {
+
+try {
+    if (fs.existsSync(projectName)) {
         if (yesForAll) {
+            console.log('项目已存在')
+
             rootName = projectName
             next = Promise.resolve(projectName)
         } else {
@@ -89,9 +83,9 @@ if (list.length) {
                     // todo 测试,默认不删
                     default: false,
                 },
-            ]).then(answer => {
+            ]).then(async answer => {
                 if (answer.deleteExist) {
-                    fs.emptyDir(path.resolve(process.cwd(), projectName))
+                    await fs.remove(path.resolve(process.cwd(), projectName))
                 } else {
                     // todo 识别是否为 react-native 项目,不是的话退出
                 }
@@ -100,26 +94,13 @@ if (list.length) {
             })
         }
     } else {
+        // rootName 都设为 项目目录,不处理可能在 ./ 的情况
         rootName = projectName
         next = Promise.resolve(projectName)
     }
-
-} else if (rootName === projectName) {
-    console.log('rootName, projectName', rootName, projectName)
-    rootName = '.'
-    next = inquirer.prompt([
-        {
-            name: 'buildInCurrent',
-            message: '当前目录为空，且目录名称和项目名称相同，是否直接在当前目录下创建新项目？',
-            type: 'confirm',
-            default: true,
-        },
-    ]).then(answer => {
-        return Promise.resolve(answer.buildInCurrent ? '.' : projectName)
-    })
-} else {
-    rootName = projectName
-    next = Promise.resolve(projectName)
+} catch (err) {
+    console.log(err)
+    process.exit(1)
 }
 
 next && go()
@@ -169,8 +150,11 @@ function go() {
                             name: 'react-native-syan-image-picker(图片选择,拍照)',
                             value: 'react-native-syan-image-picker',
                             checked: false,
+                        }, {
+                            name: 'react-native-general-actionsheet(类似IOS中ActionSheet的弹出按钮组)',
+                            value: 'react-native-general-actionsheet',
+                            checked: false,
                         },
-                        'react-native-general-actionsheet',
                     ],
                     default: [],
                 },
@@ -203,7 +187,7 @@ function go() {
             if (list.length) {
                 return Promise.resolve(context)
             } else {
-                console.log(logSymbols.info,chalk.green('安装预计需要 5-10 分钟,请耐心等待'))
+                console.log(logSymbols.info, chalk.green('安装预计需要 5-10 分钟,请耐心等待'))
 
                 // 如果是空目录就初始化 react-native
                 await execSh.promise('npx react-native init  ' + projectName).catch((res) => {
@@ -211,7 +195,6 @@ function go() {
                     console.error(logSymbols.error, chalk.red(`react-native 安装失败,程序退出`))
                     process.exit(1)
                 })
-                console.log(333)
                 return Promise.resolve(context)
             }
         })
@@ -298,13 +281,10 @@ function go() {
             return Promise.reject('reject')
 
         })
-        //
+        // 退回初始的命令执行目录
         .then(context => {
-            // 退回初始的命令执行目录
             shell.cd('..')
             return Promise.resolve(context)
-
-
         })
         // 删除临时文件夹，将文件移动到目标目录下
         .then(context => {

@@ -47,12 +47,10 @@ react-native-cli
  3. 搬运模版文件的 `/src`,替换 `index.js`,`App.js` ...
  
 # 正在解决问题
-动态路径名 `android\app\src\main\java\com\rn61test`下的文件修改
-`MainActivity.java`,`MainApplication.java`
 
-# 功能
+扫描文件夹权限不够?
 
-
+增加更新检测
 
 
 # 使用 metalsmith 处理模板
