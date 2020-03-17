@@ -1,4 +1,4 @@
-# 1. react-native-template
+# 1. 说明
 创意 react-native 项目生成器
 根据官方的 `react-native init AwesomeProject` 生成项目,集成`mobx`,`react-native-router-flux`路由,`react-native-root-toast`弹窗.
 
@@ -36,18 +36,20 @@ feat: 增加 -y 跳过询问
 
 `feat` 可以被替换为以下的几种类型选项:
 ```
-feat 新功能
-fix Bug 修复
-docs 文档更新
-style 代码的格式，标点符号的更新
-refactor 代码重构
-perf 性能优化
-test 测试更新
-build 构建系统或者包依赖更新
-ci CI 配置，脚本文件等更新
-chore 非 src 或者 测试文件的更新
-revert commit 回退
+feat： 新增feature
+fix: 修复bug
+docs: 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等
+style: 仅仅修改了空格、格式缩进、逗号等等，不改变代码逻辑
+refactor: 代码重构，没有加新功能或者修复bug
+perf: 优化相关，比如提升性能、体验
+test: 测试用例，包括单元测试、集成测试等
+build: 构建系统或者包依赖更新
+ci: CI 配置，脚本文件等更新
+chore: 改变构建流程、或者增加依赖库、工具等
+revert: 回滚到上一个版本
 ```
+如果你记不住这么多类型,也可以安装[commitizen](https://github.com/commitizen/cz-cli),[用 git cz 取代 git commit](https://www.jianshu.com/p/eff5726f8633)
+
 当你的 commit 信息符合规范, standard-version 才会根据 commit 自动生成 CHANGELOG.md 版本变动信息
 
 ## 3.2. script 说明
@@ -58,7 +60,6 @@ revert commit 回退
     "patch": "standard-version -r patch"    生成一个小版本. 1.0.0 => 1.0.1
 
 # 4. 实现方式
-react-native-cli
 
 在这之前你应该先阅读[基于node.js的脚手架工具开发经历](https://juejin.im/post/5a31d210f265da431a43330e),明白node工程下package.json中的bin字段可以定义命令名和关联执行文件,了解命令行交互的基本原理.
 
