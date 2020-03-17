@@ -23,11 +23,8 @@ module.exports = function (context) {
             .clean(false)
             .source(src)
             .destination(dest)
-
-
             // 复制动态路径里的内容
             .use(copyDynamicPathFile(src))
-
             // 使用一个一个插件处理,把它们连在一起
             .use(removeIgnore(src))
 
@@ -49,7 +46,8 @@ module.exports = function (context) {
 
                 })
                 done()
-            }).build(err => {
+            })
+            .build(err => {
                 // 测试,不要移除目录
                 // remove(src)
                 err ? reject(err) : resolve(context)
