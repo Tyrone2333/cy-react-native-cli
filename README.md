@@ -18,16 +18,44 @@
 ```
  
 # 开发
-
+0. 如果你有安装过,先卸载全局包,否则会冲突 `npm uninstall cy-react-native-cli -g`
 1. 使用 `npm i` 安装依赖
 2. 运行 `npm link`
 3. 运行 `npm run nodemon`,目录自行替换,最好选择其他盘符.如果在当前目录下测试会因为生成的文件夹里有 .git 导致本项目 git diff 被污染.
 
+### commit 规范
 
+[standard-version](https://github.com/conventional-changelog/standard-version) 是一个版本和 changelog 自动化工具,请先安装
+```
+npm install -g standard-version
+```
+你的 commit 信息应该遵循 [Angular 规范](https://www.jianshu.com/p/c7e40dab5b05),形如
+```text
+feat: 增加 -y 跳过询问
+```
+
+`feat` 可以被替换为以下的几种类型选项:
+```
+feat 新功能
+fix Bug 修复
+docs 文档更新
+style 代码的格式，标点符号的更新
+refactor 代码重构
+perf 性能优化
+test 测试更新
+build 构建系统或者包依赖更新
+ci CI 配置，脚本文件等更新
+chore 非 src 或者 测试文件的更新
+revert commit 回退
+```
+当你的 commit 信息符合规范, standard-version 才会根据 commit 自动生成 CHANGELOG.md 版本变动信息
 
 #### script 说明
-- nodemon : 进入 temp 目录执行 `../src/index.js` 监听 `cy-react-native-cli` 所有文件变更,除了 temp 目录
-- 
+    "nodemon": 进入一个不相干的目录,使用 nodemon 执行入口文件,并监听文件变动自动刷新.注意: 在 nodemon 的环境下不能使用 inquirer 的交互
+    "publish": 发布 npm 包
+    "git-push": "git push --follow-tags origin --all", push 所有分支和 tag
+    "minor": "standard-version -r minor",   生成一个次要版本. 1.0.0 => 1.1.0
+    "patch": "standard-version -r patch"    生成一个小版本. 1.0.0 => 1.0.1
 
 # 实现方式
 react-native-cli

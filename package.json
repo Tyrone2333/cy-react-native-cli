@@ -13,7 +13,6 @@
     "nodemon3": "cd temp && nodemon --config ../nodemon.json ",
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
-    "link": "npm link cy-react-native-cli",
     "publish": "npm publish",
     "git-push": "git push --follow-tags origin --all",
     "minor": "standard-version -r minor",
