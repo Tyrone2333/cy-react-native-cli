@@ -1,6 +1,6 @@
 {
   "name": "cy-react-native-cli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "创建 react-native 项目的 cli 工具",
   "main": "bin/www.js",
   "bin": {
@@ -14,9 +14,10 @@
     "compile": "babel src -d dist",
     "watch": "npm run compile -- --watch",
     "link": "npm link cy-react-native-cli",
-    "git-push": "git push origin --all",
     "publish": "npm publish",
-    "ppppp?": "eos config set"
+    "git-push": "git push --follow-tags origin --all",
+    "minor": "standard-version -r minor",
+    "patch": "standard-version -r patch"
   },
   "author": "en20",
   "repository": {
@@ -41,6 +42,5 @@
     "shelljs": "^0.8.3",
     "fs-extra": "^8.1.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
