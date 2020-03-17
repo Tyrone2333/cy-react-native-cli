@@ -138,13 +138,15 @@ react-native 会根据你的项目名生成动态路径如 `android\app\src\main
 - [【中高级前端必备】手摸手教你撸一个脚手架](https://juejin.im/post/5d37d982e51d45108c59a635)
 - [Vue-cli原理分析](https://juejin.im/post/5b592db551882536e5178ce6#heading-0)
 
-# 正在解决问题
+# 模版文件
+要了解模版文件的改变👉 [`template/README.md`](./template/README.md)
+
+# TODO
 
 增加开发/正式版本,正式版下载远程的模版,并增加更新检测
 
 增加自动升级 package.json/android/ios 版本号,并根据 git commit 信息生成 CHANGELOG.md
 
-检查 cli 更新,地址: http://registry.npmjs.org/cy-react-native-cli
 
 # 其他工具
 美化我们的脚手架
