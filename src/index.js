@@ -22,10 +22,8 @@ const execSh = require('./lib/exec-sh')
 const utils = require('./utils/utils')
 let packageMap = require(path.join(__dirname, '../template/packageMap'))
 
-module.exports = async function() {
-    const packageJson = await fs.readJson(
-        path.join(__dirname, '../package.json'),
-    )
+module.exports = async function () {
+    const packageJson = await fs.readJson(path.join(__dirname, '../package.json'))
 
     console.log(`
  ██████╗██╗   ██╗      ██████╗██╗     ██╗
@@ -52,7 +50,7 @@ module.exports = async function() {
     program
         .command('init <name>')
         .description('创建 react-native 项目')
-        .action(function(name) {
+        .action(function (name) {
             projectName = name
             // Async with promises:
             // fs.copy(path.join(__dirname, '../templates/react-native'), `./${name}`)
@@ -155,7 +153,7 @@ module.exports = async function() {
                     {
                         type: 'checkbox',
                         name: 'dependencies',
-                        message: '请选择需要集成的插件',
+                        message: '请选择需要集成的插件 (按 <space> 选择, <a> 切换全部, <i> 反选)\n',
                         choices: [
                             {
                                 name:

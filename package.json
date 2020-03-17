@@ -8,7 +8,7 @@
     "cy": "./bin/www.js"
   },
   "scripts": {
-    "nodemon": "g: && cd g:\\Temp\\tttttttttttemp && nodemon --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\* E:\\enzo\\code\\android\\cy-cli\\src\\index.js init aaa -y",
+    "nodemon": "g: && cd g:\\Temp\\tttttttttttemp && nodemon --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\* E:\\enzo\\code\\android\\cy-cli\\bin\\www.js init aaa -y",
     "nodemon4": "cd temp && nodemon --ignore ../temp/*  --watch ../src/* ../src/index.js init ttt -y ",
     "nodemon3": "cd temp && nodemon --config ../nodemon.json ",
     "compile": "babel src -d dist",
