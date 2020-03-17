@@ -23,6 +23,8 @@ const utils = require('./utils/utils')
 let packageMap = require(path.join(__dirname, '../template/packageMap'))
 
 module.exports = async function () {
+    // cwd是指当前node命令执行时所在的文件夹目录
+    // __dirname是指被执行js文件所在的文件夹目录
     const packageJson = await fs.readJson(path.join(__dirname, '../package.json'))
 
     console.log(`

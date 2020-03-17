@@ -23,9 +23,11 @@ module.exports = function (context) {
             .clean(false)
             .source(src)
             .destination(dest)
+            // 使用一个一个插件处理,把它们连在一起
+
             // 复制动态路径里的内容
             .use(copyDynamicPathFile(src))
-            // 使用一个一个插件处理,把它们连在一起
+            // 移除 template.ignore 中列出的文件
             .use(removeIgnore(src))
 
             .use((files, metalsmith, done) => {

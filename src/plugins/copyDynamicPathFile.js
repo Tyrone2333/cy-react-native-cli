@@ -14,8 +14,6 @@ module.exports = function (src) {
     return async function (files, metalsmith, done) {
         const meta = metalsmith.metadata()
         const dynamicPath = 'dynamicPathFile\\'
-        // 动态路径名 `android\app\src\main\java\com\rn61test`下的文件修改
-        //     `MainActivity.java`,`MainApplication.java`
 
         // 复制 java 相关
         let mainActivityJava = files[dynamicPath + 'MainActivity.java']
@@ -26,9 +24,7 @@ module.exports = function (src) {
 
         // 复制 ios 相关
         let infoPlist = files[dynamicPath + 'Info.plist']
-
         infoPlist && (files['ios\\' + meta.projectName + '\\Info.plist'] = infoPlist)
-
 
         // Object.keys(files).forEach((fileName) => {
         //
