@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import {observer} from 'mobx-react'
 
-import {TouchableOpacity, StyleSheet, Text, View, TextInput} from 'react-native'
+import {TouchableOpacity, StyleSheet, Text, View, TextInput, ScrollView} from 'react-native'
 
 import {Actions} from 'react-native-router-flux'
 import {px} from '../../../style/util/config'

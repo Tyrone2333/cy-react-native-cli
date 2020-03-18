@@ -34,7 +34,7 @@ import TakePhoto from '../views/TakePhoto'
 <% if (dependencies.includes('react-native-swiper')) { %>
     import exampleSwiper from '../views/example/swiper'
 <% } %>
-<% if (dependencies.includes('react-native-video')) { %>
+<% if (dependencies.includes('react-native-video-controls')) { %>
     import exampleVideo from '../views/example/video'
 <% } %>
 import Home from '../views/tab/home'
@@ -160,7 +160,7 @@ const Route = () => (
                     navBar={CustomNavBar}
                 />
                 <% } %>
-                <% if (dependencies.includes('react-native-video')) { %>
+                <% if (dependencies.includes('react-native-video-controls')) { %>
                 <Scene
                     key="exampleVideo"
                     title="Video"

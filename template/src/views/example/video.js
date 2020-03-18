@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text,
-    View
+    View,
 } from 'react-native';
 
-import Video from 'react-native-video';
+import Video from 'react-native-video-controls';
 
 export default class Index extends Component {
     constructor(props) {
@@ -19,35 +18,32 @@ export default class Index extends Component {
         
     }
 
-    onBuffer() {
-        console.log("视频正在缓冲")
-    }
-
-    videoError() {
-        console.log("无法加载视频")
-    }
-
     render() {
+        let path = 'http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4'
         return (
             <View style={styles.container}>
-                <Video source={{ uri: "http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4" }}
-                    ref={(ref) => {
-                        this.player = ref
-                    }}
-                    onBuffer={this.onBuffer}
-                    onError={this.videoError}
-                    style={styles.backgroundVideo} />
+                <View style={styles.fullScreen}>
+                        <Video
+                            source={{uri: path}}
+                            // navigator={ this.props.navigator }
+                            disableBack={ true }
+                            disableVolume={ true }
+                        />
+                </View>
             </View>
         );
     }
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#333'
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor:'#000'
     },
-    backgroundVideo: {
+    fullScreen: {
         position: 'absolute',
         top: 0,
         left: 0,
