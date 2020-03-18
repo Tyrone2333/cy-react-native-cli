@@ -3,28 +3,23 @@
  *
  * 这里处理以项目名创建的一些路径下的文件
  */
-const Metalsmith = require('metalsmith')
-const Handlebars = require('handlebars')
-const fs = require("fs")
-const path = require("path")
-let {render} = require('consolidate').ejs
 
-
-module.exports = function (src) {
-    return async function (files, metalsmith, done) {
+module.exports = function() {
+    return function(files, metalsmith, done) {
         const meta = metalsmith.metadata()
         const dynamicPath = 'dynamicPathFile\\'
 
         // 复制 java 相关
-        let mainActivityJava = files[dynamicPath + 'MainActivity.java']
-        let mainApplicationJava = files[dynamicPath + 'MainApplication.java']
+        const mainActivityJava = files[`${ dynamicPath }MainActivity.java`]
+        const mainApplicationJava = files[`${ dynamicPath }MainApplication.java`]
 
-        mainActivityJava && (files['android\\app\\src\\main\\java\\com\\' + meta.projectName + '\\MainActivity.java'] = mainActivityJava)
-        mainApplicationJava && (files['android\\app\\src\\main\\java\\com\\' + meta.projectName + '\\MainApplication.java'] = mainApplicationJava)
+        mainActivityJava && (files[`android\\app\\src\\main\\java\\com\\${ meta.projectName }\\MainActivity.java`] = mainActivityJava)
+
+        mainApplicationJava && (files[`android\\app\\src\\main\\java\\com\\${ meta.projectName }\\MainApplication.java`] = mainApplicationJava)
 
         // 复制 ios 相关
-        let infoPlist = files[dynamicPath + 'Info.plist']
-        infoPlist && (files['ios\\' + meta.projectName + '\\Info.plist'] = infoPlist)
+        const infoPlist = files[`${ dynamicPath }Info.plist`]
+        infoPlist && (files[`ios\\${ meta.projectName }\\Info.plist`] = infoPlist)
 
         // Object.keys(files).forEach((fileName) => {
         //
@@ -32,8 +27,6 @@ module.exports = function (src) {
         // })
         // console.log(metalsmith)
 
-
         done()
     }
-
 }

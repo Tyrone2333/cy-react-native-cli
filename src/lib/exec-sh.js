@@ -1,17 +1,25 @@
-var cp = require('child_process')
+const cp = require('child_process')
 
-var defSpawnOptions = { stdio: 'inherit' }
+const defSpawnOptions = {
+    stdio: 'inherit',
+}
 
 /**
  * @summary Get shell program meta for current platform
  * @private
  * @returns {Object}
  */
-function getShell () {
+function getShell() {
     if (process.platform === 'win32') {
-        return { cmd: 'cmd', arg: '/C' }
-    } else {
-        return { cmd: 'sh', arg: '-c' }
+        return {
+            cmd: 'cmd',
+            arg: '/C',
+        }
+    }
+ 
+    return {
+        cmd: 'sh',
+        arg: '-c',
     }
 }
 
@@ -26,52 +34,63 @@ function getShell () {
  * @param {Function} [callback]
  * @returns {ChildProcess}
  */
-function execSh (command, options, callback) {
+function execSh(command, options, callback) {
     if (Array.isArray(command)) {
         command = command.join(';')
     }
 
     if (options === true) {
-        options = { stdio: null }
+        options = {
+            stdio: null,
+        }
     }
 
     if (typeof options === 'function') {
         callback = options
+
         options = defSpawnOptions
     } else {
-        options = options || {}
-        options = Object.assign({}, defSpawnOptions, options)
-        callback = callback || function () {}
+        options = options || {
+        }
+
+        options = {
+            ...defSpawnOptions,
+            ...options,
+        }
+
+        callback = callback || function() {}
     }
 
-    var child
-    var stdout = ''
-    var stderr = ''
-    var shell = getShell()
+    let child
+    let stdout = ''
+    let stderr = ''
+    const shell = getShell()
 
     try {
         child = cp.spawn(shell.cmd, [shell.arg, command], options)
     } catch (e) {
         callback(e, stdout, stderr)
+
         return
     }
 
     if (child.stdout) {
-        child.stdout.on('data', function (data) {
+        child.stdout.on('data', data => {
             stdout += data
         })
     }
 
     if (child.stderr) {
-        child.stderr.on('data', function (data) {
+        child.stderr.on('data', data => {
             stderr += data
         })
     }
 
-    child.on('close', function (code) {
+    child.on('close', code => {
         if (code) {
-            var e = new Error('Shell command exit with non zero code: ' + code)
+            const e = new Error(`Shell command exit with non zero code: ${ code }`)
             e.code = code
+
             callback(e, stdout, stderr)
         } else {
             callback(null, stdout, stderr)
@@ -81,24 +100,28 @@ function execSh (command, options, callback) {
     return child
 }
 
-execSh.promise = function (command, options) {
-    return new Promise(function (resolve, reject) {
-        execSh(command, options, function (err, stdout, stderr) {
+execSh.promise = function(command, options) {
+    return new Promise(((resolve, reject) => {
+        execSh(command, options, (err, stdout, stderr) => {
             if (err) {
                 err.stdout = stdout
+
                 err.stderr = stderr
+
                 return reject(err)
             }
 
             resolve({
-                stderr: stderr,
-                stdout: stdout
+                stderr,
+                stdout,
             })
         })
-    })
+    }))
 }
 
-let esh = execSh.promise
+const esh = execSh.promise
 esh.async = execSh
+
 esh.promise = execSh.promise
+
 module.exports = esh

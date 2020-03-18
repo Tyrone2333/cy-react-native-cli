@@ -170,17 +170,38 @@ react-native 会根据你的项目名生成动态路径如 `android\app\src\main
 # 5. 模版文件
 要了解模版文件的改变👉 [`template/README.md`](./template/README.md)
 
-# 6. TODO
+# 6. Babel
+目前 babel 版本是 7,安装下面的包:
+
+    npm i @babel/core @babel/cli @babel/preset-env @babel/node @babel/core -D
+    npm i core-js regenerator-runtime
+
+在`index.js`加上
+
+    import "core-js/stable";
+    import "regenerator-runtime/runtime";
+script 添加脚本
+
+    "watch": "npm run compile -- --watch",
+    "nodemon": "g: && cd g:\\Temp\\tttttttttttemp && cross-env NODE_ENV=development nodemon  --ignore E:\\enzo\\code\\android\\cy-cli\\temp\\*  --watch E:\\enzo\\code\\android\\cy-cli\\* E:\\enzo\\code\\android\\cy-cli\\bin\\www.js init aaa -y",
+`www.js` 入口改成
+
+    #!/usr/bin/env node
+    require('../dist/index')()
+
+babel 配置有问题,开发时要同时开启 watch 编译,nodemon 重启服务.效率比较低.所以没启用
+
+# 7. TODO
 
 增加开发/正式版本,正式版下载远程的模版,并增加更新检测
 
 增加自动升级 package.json/android/ios 版本号,并根据 git commit 信息生成 CHANGELOG.md
 
 
-# 7. 其他工具
+# 8. 其他工具
 美化我们的脚手架
 - ora - 显示spinner
 - chalk - 给枯燥的终端界面添加一些色彩
 
-# 8. License
+# 9. License
 MIT
