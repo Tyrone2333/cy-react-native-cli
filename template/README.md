@@ -1,11 +1,10 @@
-# <%= projectName %>
+<h1><%= projectName %></h1>
 
 <%= projectDescription %>
 
 根据官方的 `react-native init AwesomeProject` 生成项目,集成`mobx`,`react-native-router-flux`路由,`react-native-root-toast`弹窗.
 
-
-# 目录结构
+# 1. 目录结构
 ```text
 ├─api
 ├─assets  // 静态资源(图片,音频等)
@@ -28,25 +27,25 @@
     │  └─style.js  // 页面样式
 ```
 
-# Install
+# 2. Install
 
-# 路由 & 状态
-### 路由 [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
+# 3. 路由 & 状态
+## 3.1. 路由 [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
 文档: https://github.com/aksonov/react-native-router-flux/blob/master/docs/API.md
 
-### 状态管理 
+## 3.2. 状态管理 
 [mobx-react](https://github.com/mobxjs/mobx-react)
 - [React-Native + Mobx一步步构建项目](https://segmentfault.com/a/1190000014165693)
 - [mobx 官方文档](https://mobx.js.org/refguide/observer-component.html)
 
 
-# 初始化项目
+# 4. 初始化项目
 1. 初始化项目: react-native init cy[projectname]
 
-# 关于打包
+# 5. 关于打包
 <https://reactnative.cn/docs/signed-apk-android/>
 
-### 生成一个签名密钥
+## 5.1. 生成一个签名密钥
 你可以用keytool命令生成一个私有密钥。在 Windows 上keytool命令放在 JDK 的 bin 目录中（比如C:\Program Files\Java\jdkx.x.x_x\bin），你可能需要在命令行中先进入那个目录才能执行此命令。
 
     keytool -genkeypair -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
@@ -54,7 +53,7 @@
 这条命令会要求你输入密钥库（keystore）和对应密钥的密码(本项目以 `123456` 为例)，然后设置一些发行相关的信息。最后它会生成一个叫做my-release-key.keystore的密钥库文件。
 
 
-### 设置 gradle 变量
+## 5.2. 设置 gradle 变量
 把my-release-key.keystore文件放到你工程中的android/app文件夹下。
 编辑项目目录/android/gradle.properties（项目配置，只对所在项目有效）。如果没有gradle.properties文件你就自己创建一个，添加如下的代码（注意把其中的123456替换为相应密码）
 ```text
@@ -64,7 +63,7 @@ MYAPP_RELEASE_STORE_PASSWORD=123456
 MYAPP_RELEASE_KEY_PASSWORD=123456
 ```
 
-### 把签名配置加入到项目的 gradle 配置中
+## 5.3. 把签名配置加入到项目的 gradle 配置中
 编辑你项目目录下的android/app/build.gradle，添加如下的签名配置：
 ```text
 ...
@@ -103,7 +102,7 @@ rn 打包的正式 apk: android\app\build\outputs\apk\release
 npm script 执行 `yarn run open-release-folder` 可以打开对应文件夹
 
 
-### 重命名 release 的包名
+## 5.4. 重命名 release 的包名
 修改 `app/build.gradle`,找到 `variant.outputs.each` 在遍历的{}最底部增加
 ```text
     applicationVariants.all { variant ->
@@ -120,12 +119,12 @@ npm script 执行 `yarn run open-release-folder` 可以打开对应文件夹
 ```
 打出的包名为 `com.rn61test_v1.0.0_20191109-221253.apk`
 
-# 插件集成
-### 弹窗提示
+# 6. 插件集成
+## 6.1. 弹窗提示
 [react-native-root-toast](https://github.com/magicismight/react-native-root-toast). 
 
 已经在入口 `index.js` 全局挂载,在项目里直接调用 `$warn` 即可
-### 图片选择,拍照
+## 6.2. 图片选择,拍照
 按照文档配置,添加权限
 
 https://github.com/syanbo/react-native-syan-image-picker
@@ -143,25 +142,25 @@ IOS 权限 项目目录->Info.plist->增加
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>请允许访问相册以选取照片</string>
 ```
-### 安卓和 IOS 都能用的 ActionSheet
+## 6.3. 安卓和 IOS 都能用的 ActionSheet
 无需重新打包 
 https://github.com/gaoxiaosong/react-native-general-actionsheet
 
 <img src="https://github.com/gaoxiaosong/react-native-general-actionsheet/raw/master/resource/iOS-2-P.png" height="400px">
 
-#### 安装后导致 react-native-root-toast 无效.
+## 6.4. 安装后导致 react-native-root-toast 无效.
 
 因为你装了两次 react-native-root-siblings,一个4.0,一个3.x
 
 解决办法: 固定版本 "react-native-root-toast": "3.1.2"
 
 
-### 启动页
+## 6.5. 启动页
 ```text
 
 ```
-# 常见问题
-### Android 9 无法联网
+# 7. 常见问题
+## 7.1. Android 9 无法联网
 因为谷歌要求默认使用加密连接.
 在res下新建一个xml目录 创建名为 `network_security_config.xml` 文件 ，该文件内容如下：
 ```xml
@@ -175,7 +174,7 @@ https://github.com/gaoxiaosong/react-native-general-actionsheet
 android:networkSecurityConfig="@xml/network_security_config"
 `
 
-### 在 Android 上支持 GIF 和 WebP 格式图片
+## 7.2. 在 Android 上支持 GIF 和 WebP 格式图片
 默认情况下 Android 是不支持 GIF 和 WebP 格式的。你需要在android/app/build.gradle文件中根据需要手动添加以下模块：
 ```
 dependencies {
@@ -194,15 +193,15 @@ dependencies {
 }
 ```
 
-### 在 FlatList/ScrollView 中 margin 不生效,重叠了怎么办?
+## 7.3. 在 FlatList/ScrollView 中 margin 不生效,重叠了怎么办?
 给 FlatList/ScrollView 组件添加
 ```
     contentContainerStyle={{paddingBottom:xxx}}
 ```
 
-### mobx 中的数据不能响应
+## 7.4. mobx 中的数据不能响应
 检查是否有给组件添加 `@observer` ,用于渲染 mobx 数据的下级组件同样需要添加 `@observer` 
 
 
-# License
+# 8. License
 MIT
