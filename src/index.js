@@ -177,6 +177,12 @@ module.exports = async function () {
                                 value: 'react-native-swiper',
                                 checked: false,
                             },
+                            {
+                                name:
+                                    'react-native-video(视频播放)',
+                                value: 'react-native-video',
+                                checked: false,
+                            },
                         ],
                         default: [],
                     },

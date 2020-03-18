@@ -32,7 +32,10 @@ import TTTTTTTest from '../views/TTTTTTTest'
 import TakePhoto from '../views/TakePhoto'
 <% } %>
 <% if (dependencies.includes('react-native-swiper')) { %>
-    import Swiper from '../views/example/swiper'
+    import exampleSwiper from '../views/example/swiper'
+<% } %>
+<% if (dependencies.includes('react-native-video')) { %>
+    import exampleVideo from '../views/example/video'
 <% } %>
 import Home from '../views/tab/home'
 import Mine from '../views/tab/Mine'
@@ -151,9 +154,17 @@ const Route = () => (
                 <% } %>
                 <% if (dependencies.includes('react-native-swiper')) { %>
                 <Scene
-                    key="Swiper"
+                    key="exampleSwiper"
                     title="Swiper"
-                    component={Swiper}
+                    component={exampleSwiper}
+                    navBar={CustomNavBar}
+                />
+                <% } %>
+                <% if (dependencies.includes('react-native-video')) { %>
+                <Scene
+                    key="exampleVideo"
+                    title="Video"
+                    component={exampleVideo}
                     navBar={CustomNavBar}
                 />
                 <% } %>

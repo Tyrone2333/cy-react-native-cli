@@ -15,11 +15,11 @@ export default class extends Component {
             list: [
                 {
                     name: '轮播swiper',
-                    url: 'Swiper'
+                    url: 'exampleSwiper'
                 },
                 {
-                    name: '插件b',
-                    url: 'TakePhoto'
+                    name: '视频播放',
+                    url: 'exampleVideo'
                 },
                 {
                     name: '插件c',
@@ -71,7 +71,7 @@ export default class extends Component {
                 <View>
                     <TextInput style={[styles.input]} onChangeText={(val) => this.search(val)} underlineColorAndroid="transparent" placeholder="请输入关键字" placeholderTextColor={'#bbbbbb'} keyboardType={'default'} value={keyword}/>
                 </View>
-                <View style={styles.list}>
+                <ScrollView style={styles.list}>
                     {
                         listShow.map((item, index) => {
                             return (
@@ -83,7 +83,7 @@ export default class extends Component {
                             )
                         })
                     }
-                </View>
+                </ScrollView>
             </View>
         )
     }
