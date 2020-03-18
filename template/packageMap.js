@@ -44,4 +44,5 @@ module.exports.dependencies = {
 module.exports.optionalDependencies = {
     "react-native-general-actionsheet": "^1.0.4",
     "react-native-syan-image-picker": "^0.4.6",
+    "react-native-swiper": "^1.6.0-rc.3",
 }

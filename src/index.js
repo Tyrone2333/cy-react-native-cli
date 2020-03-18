@@ -167,6 +167,12 @@ module.exports = async function () {
                                 value: 'react-native-general-actionsheet',
                                 checked: false,
                             },
+                            {
+                                name:
+                                    'react-native-swiper(轮播)',
+                                value: 'react-native-swiper',
+                                checked: false,
+                            },
                         ],
                         default: [],
                     },

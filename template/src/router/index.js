@@ -31,8 +31,12 @@ import TTTTTTTest from '../views/TTTTTTTest'
 <% if (dependencies.includes('react-native-syan-image-picker')) { %>
 import TakePhoto from '../views/TakePhoto'
 <% } %>
+<% if (dependencies.includes('react-native-swiper')) { %>
+    import Swiper from '../views/example/swiper'
+<% } %>
 import Home from '../views/tab/home'
 import Mine from '../views/tab/Mine'
+import Plugin from '../views/tab/Plugin'
 
 const TabBarIcon = ({tabBarLabel, focused}) => {
     let icon = null
@@ -41,6 +45,11 @@ const TabBarIcon = ({tabBarLabel, focused}) => {
             label: '首页',
             activeIcon: require('../assets/homefocus.png'),
             icon: require('../assets/home.png'),
+        },
+        {
+            label: '插件',
+            activeIcon: require('../assets/userfocus.png'),
+            icon: require('../assets/user.png'),
         },
         {
             label: '我的',
@@ -112,6 +121,13 @@ const Route = () => (
                     />
                     <Scene
                         hideNavBar
+                        key="Plugin"
+                        tabBarLabel="插件"
+                        icon={TabBarIcon}
+                        component={Plugin}
+                    />
+                    <Scene
+                        hideNavBar
                         key="Mine"
                         tabBarLabel="我的"
                         icon={TabBarIcon}
@@ -130,6 +146,14 @@ const Route = () => (
                     key="TakePhoto"
                     title="TakePhoto"
                     component={TakePhoto}
+                    navBar={CustomNavBar}
+                />
+                <% } %>
+                <% if (dependencies.includes('react-native-swiper')) { %>
+                <Scene
+                    key="Swiper"
+                    title="Swiper"
+                    component={Swiper}
                     navBar={CustomNavBar}
                 />
                 <% } %>
