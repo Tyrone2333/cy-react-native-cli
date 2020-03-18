@@ -47,6 +47,8 @@ module.exports.optionalDependencies = {
     "react-native-general-actionsheet": "^1.0.4",
     "react-native-syan-image-picker": "^0.4.6",
     "react-native-swiper": "^1.6.0-rc.3",
+    "jcore-react-native": "^1.7.5",
+    "jpush-react-native": "^2.7.5",
     "react-native-video": "^5.0.2",
     "react-native-video-controls": "^2.4.0",
 }

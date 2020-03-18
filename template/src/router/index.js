@@ -37,6 +37,10 @@ import TakePhoto from '../views/TakePhoto'
 <% if (dependencies.includes('react-native-video-controls')) { %>
     import exampleVideo from '../views/example/video'
 <% } %>
+<% if (dependencies.includes('jpush-react-native')) { %>
+    import exampleJpush from '../views/example/jpush'
+<% } %>
+
 import Home from '../views/tab/home'
 import Mine from '../views/tab/Mine'
 import Plugin from '../views/tab/Plugin'
@@ -168,6 +172,16 @@ const Route = () => (
                     navBar={CustomNavBar}
                 />
                 <% } %>
+                <% if (dependencies.includes('jpush-react-native')) { %>
+                <Scene
+                    key="exampleJpush"
+                    title="exampleJpush"
+                    component={exampleJpush}
+                    navBar={CustomNavBar}
+                />
+                <% } %>
+
+
             </Modal>
         </Router>
     </SafeAreaView>

@@ -26,8 +26,8 @@ export default class extends Component {
                     url: 'TakePhoto'
                 },
                 {
-                    name: '插件d',
-                    url: 'TakePhoto'
+                    name: '极光推送',
+                    url: 'exampleJpush'
                 },
                 {
                     name: '插件e',

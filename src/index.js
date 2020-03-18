@@ -159,6 +159,10 @@ module.exports = async function() {
                         value: 'react-native-general-actionsheet',
                         checked: false,
                     }, {
+                        name: '极光推送',
+                        value: 'jpush-react-native',
+                        checked: false,
+                    }, {
                         name: 'react-native-swiper(轮播)',
                         value: 'react-native-swiper',
                         checked: false,
@@ -181,6 +185,7 @@ module.exports = async function() {
                     })
                 }
 
+                // todo 要改
                 return inquirer.prompt(prompts).then(answers => {
                     if (answers.dependencies.indexOf('react-native-video-controls') > -1) {
                         answers.dependencies.push('react-native-video')
@@ -282,8 +287,7 @@ module.exports = async function() {
                 } = packageMap
 
                 for (const depName in optionalDependencies) {
-                    const version = optionalDependencies[depName].replace(/\^/,
-                        '')
+                    const version = optionalDependencies[depName].replace(/\^/, '')
 
                     if (
                         metadata
@@ -293,6 +297,11 @@ module.exports = async function() {
                         if (!utils.isItInstalled(depName, rnPkg)) {
                             // 为防止出事,版本号都固定
                             installDependenciesCmd += ` ${ depName }@${ version } `
+
+                            // 有的包是连体婴儿    // todo 连体婴儿包 改成用 对象形式
+                            if (depName === 'jpush-react-native') {
+                                installDependenciesCmd += ` ${ 'jcore-react-native' }@${ optionalDependencies['jcore-react-native'].replace(/\^/, '') } `
+                            }
                         }
                     }
                 }

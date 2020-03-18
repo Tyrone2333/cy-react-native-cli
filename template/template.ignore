@@ -8,9 +8,12 @@ template.ignore
     src/views/TakePhoto
 <% } %>
 
-# react-native-syan-image-picker 相关文件夹不输出
 <% if (!dependencies.includes('react-native-general-actionsheet')) { %>
     src/components/ActionSheetUploadSample.js
+<% } %>
+
+<% if (!dependencies.includes('jpush-react-native')) { %>
+    src/views/example/jpush.js
 <% } %>
 
 dynamicPathFile/
