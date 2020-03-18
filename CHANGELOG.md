@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://gitee.com/yang_update/cy-cli/compare/v1.0.5...v1.1.0) (2020-03-17)
+
+
+### Features
+
+* 增加检查 cli 更新,不更新就不给用:> ([7e450d6](https://gitee.com/yang_update/cy-cli/commit/7e450d62c3128db3af03bd46aa74941c8dc7392c))
+* 完善文档,增加实现方式的说明 ([6a2e3e4](https://gitee.com/yang_update/cy-cli/commit/6a2e3e44d5755523b3ea5b367db898f5bb495fa3))
+
 ### 1.0.5 (2020-03-17)
 
 

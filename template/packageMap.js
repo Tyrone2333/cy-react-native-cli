@@ -1,5 +1,7 @@
 /**
  * Created by en20 on 2020/3/11.
+ *
+ * 修改 `package.json` 中的内容
  */
 
 // 脚本
