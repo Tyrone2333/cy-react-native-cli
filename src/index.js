@@ -162,6 +162,10 @@ module.exports = async function() {
                         name: 'react-native-swiper(轮播)',
                         value: 'react-native-swiper',
                         checked: false,
+                    }, {
+                        name: 'react-native-video-controls(视频播放)',
+                        value: 'react-native-video-controls',
+                        checked: false,
                     }],
                     default: [],
                 }]
@@ -177,12 +181,17 @@ module.exports = async function() {
                     })
                 }
 
-                return inquirer.prompt(prompts).then(answers => ({
-                    ...context,
-                    metadata: {
-                        ...answers,
-                    },
-                }))
+                return inquirer.prompt(prompts).then(answers => {
+                    if (answers.dependencies.indexOf('react-native-video-controls') > -1) {
+                        answers.dependencies.push('react-native-video')
+                    }
+                    return {
+                        ...context,
+                        metadata: {
+                            ...answers,
+                        },
+                    }
+                })
             })
             .then(async context => {
                 // eslint-disable-next-line prefer-destructuring
