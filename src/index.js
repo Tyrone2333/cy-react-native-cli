@@ -25,7 +25,7 @@ require('./utils/checkUpdate')
 module.exports = async function() {
     // cwd是指当前node命令执行时所在的文件夹目录
     // __dirname是指被执行js文件所在的文件夹目录
-    const packageJson = await fs.readJson(path.join(__dirname, '../package.json'))
+    const packageJson = require(path.join(__dirname, '../package.json'))
 
     console.log(`
  ██████╗██╗   ██╗      ██████╗██╗     ██╗
@@ -276,7 +276,7 @@ module.exports = async function() {
                 for (const depName in dependencies) {
                     const version = dependencies[depName].replace(/\^/, '')
                     if (!utils.isItInstalled(depName, rnPkg)) {
-                        // 为防止出事,版本号都固定
+                        // 理论上应该使用 ^向上兼容版本,为防止出事,版本号都固定
                         installDependenciesCmd += ` ${ depName }@${ version } `
                     }
                 }
