@@ -153,7 +153,86 @@ https://github.com/gaoxiaosong/react-native-general-actionsheet
 解决办法: 固定版本 "react-native-root-toast": "3.1.2"
 
 
-## 5.5. 启动页
+## 5.5. 启动页 [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
+### 5.5.1. Android
+先安装
+
+    npm i react-native-splash-screen --save
+    
+- android 修改 `MainActivity.java` 来使用启动页 
+```text
+package com.<%= projectName %>;
+
+import com.facebook.react.ReactActivity;
+import android.os.Bundle; // 启动页 here
+
+// react-native-splash-screen >= 0.3.1
+import org.devio.rn.splashscreen.SplashScreen; // 启动页 here
+
+public class MainActivity extends ReactActivity {
+
+  /**
+   * Returns the name of the main component registered from JavaScript. This is used to schedule
+   * rendering of the component.
+   */
+  @Override
+  protected String getMainComponentName() {
+    return "<%= projectName %>";
+  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // 启动页 here
+        super.onCreate(savedInstanceState);
+    }
+}
+```
+创建一个 launch_screen.xml 在 app/src/main/res/layout 复制以下内容:
+
+```text
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/screen"></ImageView>
+</FrameLayout>
+```
+这段代码使用一个带 scaleType 的 ImageView 作为启动图,android 会自动伸缩.
+你可以在以下文件夹中创建启动图
+
+    drawable-ldpi
+    drawable-mdpi
+    drawable-hdpi
+    drawable-xhdpi
+    drawable-xxhdpi
+    drawable-xxxhdpi
+
+添加一个叫 primary_dark 的颜色,在 `app/src/main/res/values/colors.xml`. 虽然我也不知道这个有什么用.
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <color name="primary_dark">#000000</color>
+    </resources>
+
+> 关于启动图的额外内容 .9.PNG
+
+.9.PNG是安卓开发里面的一种特殊的图片，这种格式的图片通过 Android Studio 自带的编辑工具生成，使用九宫格切分的方法。点九图是一种可拉伸的位图，android会自动调整它的大小，来使图像在充当背景时可以在界面中自适应展示
+图中绿色的部分会被拉伸,但图片分辨率过大时在背景图只能显示部分,目前不知道怎么调整
+![9图片示例](../screenshot/.9图片示例.png)
+如果要学习相关内容可以点击
+<https://www.cnblogs.com/whycxb/p/9737613.html>
+
+
+### 5.5.2. ios 
+
 ```text
 
 ```
@@ -209,7 +288,7 @@ project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '..
 #### 5.6.2.2. IOS
 
 
-### 5.6.3. 注意问题
+### 5.6.3. 集成完成测试
 
 集成后先测试能否 getRegistrationID,ios 和 android 回调的结构不同 
 
@@ -228,6 +307,7 @@ project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '..
 
 模拟器没有`registerID`,如果真机可以收到通知则表明集成成功
 
+### 5.6.4. 注意问题
 
 
 # 6. 常见问题
