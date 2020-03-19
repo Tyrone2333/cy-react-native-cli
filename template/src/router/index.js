@@ -32,13 +32,17 @@ import TTTTTTTest from '../views/TTTTTTTest'
 import TakePhoto from '../views/TakePhoto'
 <% } %>
 <% if (dependencies.includes('react-native-swiper')) { %>
-    import exampleSwiper from '../views/example/swiper'
+import exampleSwiper from '../views/example/swiper'
 <% } %>
 <% if (dependencies.includes('react-native-video-controls')) { %>
-    import exampleVideo from '../views/example/video'
+import exampleVideo from '../views/example/video'
+<% } %>
+<% if (dependencies.includes('react-native-wechat')) { %>
+import exampleWechatPay from '../views/example/wechatpay'
+import exampleWechatShare from '../views/example/wechatshare'
 <% } %>
 <% if (dependencies.includes('jpush-react-native')) { %>
-    import exampleJpush from '../views/example/jpush'
+import exampleJpush from '../views/example/jpush'
 <% } %>
 
 import Home from '../views/tab/home'
@@ -169,6 +173,20 @@ const Route = () => (
                     key="exampleVideo"
                     title="Video"
                     component={exampleVideo}
+                    navBar={CustomNavBar}
+                />
+                <% } %>
+                <% if (dependencies.includes('react-native-wechat')) { %>
+                <Scene
+                    key="exampleWechatPay"
+                    title="微信支付"
+                    component={exampleWechatPay}
+                    navBar={CustomNavBar}
+                />
+                <Scene
+                    key="exampleWechatShare"
+                    title="微信分享"
+                    component={exampleWechatShare}
                     navBar={CustomNavBar}
                 />
                 <% } %>

@@ -170,6 +170,10 @@ module.exports = async function() {
                         name: 'react-native-video-controls(视频播放)',
                         value: 'react-native-video-controls',
                         checked: false,
+                    }, {
+                        name: 'react-native-wechat(微信SDK)',
+                        value: 'react-native-wechat',
+                        checked: false,
                     }],
                     default: [],
                 }]
