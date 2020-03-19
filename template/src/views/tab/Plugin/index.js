@@ -22,16 +22,16 @@ export default class extends Component {
                     url: 'exampleVideo'
                 },
                 {
-                    name: '插件c',
-                    url: 'TakePhoto'
+                    name: '微信支付',
+                    url: 'exampleWechatPay'
+                },
+                {
+                    name: '微信分享',
+                    url: 'exampleWechatShare'
                 },
                 {
                     name: '极光推送',
                     url: 'exampleJpush'
-                },
-                {
-                    name: '插件e',
-                    url: 'TakePhoto'
                 },
             ],
             listShow: [],
