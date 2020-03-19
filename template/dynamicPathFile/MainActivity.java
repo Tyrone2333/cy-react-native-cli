@@ -1,10 +1,10 @@
 package com.<%= projectName %>;
 
 import com.facebook.react.ReactActivity;
-import android.os.Bundle; // here
+import android.os.Bundle; // 启动页 here
 
 // react-native-splash-screen >= 0.3.1
-import org.devio.rn.splashscreen.SplashScreen; // here
+import org.devio.rn.splashscreen.SplashScreen; // 启动页 here
 
 public class MainActivity extends ReactActivity {
 
@@ -18,7 +18,7 @@ public class MainActivity extends ReactActivity {
   }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this);  // here
+        SplashScreen.show(this);  // 启动页 here
         super.onCreate(savedInstanceState);
     }
 }
