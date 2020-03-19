@@ -197,6 +197,10 @@ babel 配置有问题,开发时要同时开启 watch 编译,nodemon 重启服务
 
 增加自动升级 package.json/android/ios 版本号,并根据 git commit 信息生成 CHANGELOG.md
 
+修改为插件化开发,可参考
+- [Vue CLI](https://cli.vuejs.org/zh/dev-guide/plugin-dev.html#generator)
+- [ElemeFE/cooking](https://github.com/ElemeFE/cooking)
+
 
 # 8. 其他工具
 美化我们的脚手架
