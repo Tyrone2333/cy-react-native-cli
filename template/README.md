@@ -286,6 +286,36 @@ project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '..
 	android:value="${JPUSH_APPKEY}" />   
 ```
 #### 5.6.2.2. IOS
+首先把需要的资源图片拖到 Images.xcassets
+
+![ios启动图1](../screenshot/ios启动图0.png)
+
+1. 打开 LaunchScreen.xib，删除 View 及 View 下的所有内容
+2. 点击右上角的加号，添加一个 View 和 Image View
+    ![ios启动图1](../screenshot/ios启动图1.png)
+    添加完成
+
+    ![ios启动图](../screenshot/ios启动图2.png)
+3. 把 Image View 拖到 View 内
+
+    ![ios启动图](../screenshot/ios启动图3.png)
+4. 设置 Image View 的图片路径
+
+    ![ios启动图](../screenshot/ios启动图4.png)
+
+5. 拖动图片到合适位置
+
+    ![ios启动图](../screenshot/ios启动图5.png)
+
+6. 点击直尺 icon，选中 AutoSizing 内的两个箭头。鼠标移到右侧可以看到容器随着设备尺寸变化而变化 
+
+    ![ios启动图](../screenshot/ios启动图6.png)
+
+7. 同理添加一个文字并移动到底部，选中 AutoSizing 内的两个箭头和底部的一个箭头，使其大小自适应并固定在底部。
+    可以切换不同的设备查看效果，如果文字被遮盖可以调整 width 和 height
+
+    ![ios启动图](../screenshot/ios启动图7.png)
+
 
 
 ### 5.6.3. 集成完成测试
