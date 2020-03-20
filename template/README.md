@@ -384,8 +384,12 @@ dependencies {
 检查是否有给组件添加 `@observer` ,用于渲染 mobx 数据的下级组件同样需要添加 `@observer` 
 
 ## 6.5. ios 报错 No bundle URL present
-检查是否有给组件添加 `@observer` ,用于渲染 mobx 数据的下级组件同样需要添加 `@observer` 
 
+检查浏览器是否有开启 debug 窗口，是否有其他项目的终端，一般全部关掉就可以
+
+我在项目里重新 `npm install` 也解决了这个问题，很迷，不知道为什么
+
+下面是第二种办法，不会出现 No bundle URL present，但是可能会有图片资源找不到的问题,所以不推荐
 1. 删除: main.jsbundle
 2. 新建一个文件，选择 Other -> Empty,保存为 main.jsbundle
 3. 运行命令: react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
