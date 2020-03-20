@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 import {px} from '../../style/util/config'
-import * as WeChat from 'react-native-wechat'
-WeChat.registerApp('wxe47473c33591a9db')
+import * as WeChat from 'react-native-wechat-lib'
+WeChat.registerApp('wxe47473c33591a9db','com.aaa')
 
 export default class Index extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class Index extends Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     select(index) {
@@ -29,7 +29,7 @@ export default class Index extends Component {
             payway: index,
         })
     }
-    
+
     submit () {
         // data是访问后端接口返回的数据
         let data = {
@@ -55,6 +55,9 @@ export default class Index extends Component {
                     appid: data.info.appid.toString()
                 }).then(res => {
                     this.props.navigation.navigate('PayStatus', {status: 1})
+                }).catch((err) => {
+                    console.log(err)
+                    $error(err.message)
                 })
             } else {
                 Alert.alert('请安装微信');

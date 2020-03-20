@@ -171,11 +171,11 @@ module.exports = async function() {
                         value: 'react-native-video-controls',
                         checked: false,
                     }, {
-                        name: 'react-native-wechat(微信SDK)',
-                        value: 'react-native-wechat',
+                        name: 'react-native-wechat-lib(微信SDK)',
+                        value: 'react-native-wechat-lib',
                         checked: false,
                     }],
-                    default: [],
+                    default: ['jpush-react-native','react-native-syan-image-picker','react-native-wechat-lib'],
                 }]
 
                 if (yesForAll) {

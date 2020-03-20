@@ -37,7 +37,7 @@ import exampleSwiper from '../views/example/swiper'
 <% if (dependencies.includes('react-native-video-controls')) { %>
 import exampleVideo from '../views/example/video'
 <% } %>
-<% if (dependencies.includes('react-native-wechat')) { %>
+<% if (dependencies.includes('react-native-wechat-lib')) { %>
 import exampleWechatPay from '../views/example/wechatpay'
 import exampleWechatShare from '../views/example/wechatshare'
 <% } %>
@@ -176,7 +176,7 @@ const Route = () => (
                     navBar={CustomNavBar}
                 />
                 <% } %>
-                <% if (dependencies.includes('react-native-wechat')) { %>
+                <% if (dependencies.includes('react-native-wechat-lib')) { %>
                 <Scene
                     key="exampleWechatPay"
                     title="微信支付"

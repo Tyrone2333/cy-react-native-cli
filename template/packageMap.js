@@ -51,5 +51,5 @@ module.exports.optionalDependencies = {
     "jpush-react-native": "^2.7.5",
     "react-native-video": "^5.0.2",
     "react-native-video-controls": "^2.4.0",
-    "react-native-wechat": "^1.9.12",
+    "react-native-wechat-lib": "^1.1.15",
 }
