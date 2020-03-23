@@ -193,8 +193,6 @@ babel 配置有问题,开发时要同时开启 watch 编译,nodemon 重启服务
 
 # 7. TODO
 
-增加开发/正式版本,正式版下载远程的模版,并增加更新检测
-
 增加自动升级 package.json/android/ios 版本号,并根据 git commit 信息生成 CHANGELOG.md
 
 修改为插件化开发,可参考
