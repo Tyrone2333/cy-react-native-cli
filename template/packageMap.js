@@ -27,7 +27,7 @@ module.exports.dependencies = {
     // ============ dependencies ===============
     // 只有这一个需要固定版本
     "react-native-root-toast": "3.1.2",
-    "react-native-router-flux": "^4.0.6",
+    "react-native-router-flux": "4.0.6",
     "react-native-storage": "^1.0.1",
 
 
@@ -46,10 +46,20 @@ module.exports.dependencies = {
 module.exports.optionalDependencies = {
     "react-native-general-actionsheet": "^1.0.4",
     "react-native-syan-image-picker": "^0.4.6",
-    "react-native-swiper": "^1.6.0-rc.3",
-    "jcore-react-native": "^1.7.5",
-    "jpush-react-native": "^2.7.5",
-    "react-native-video": "^5.0.2",
-    "react-native-video-controls": "^2.4.0",
+    "react-native-swiper": "1.6.0-rc.3",
+    // 如果一个插件需要依赖另一个插件一起安装,就把他写成对象形式
+    "jpush-react-native": {
+        version: "^2.7.5",
+        dependencies: {
+            "jcore-react-native": "^1.7.5",
+        }
+    },
+
+    "react-native-video-controls": {
+        version:  "^2.4.0",
+        dependencies: {
+            "react-native-video": "5.0.2",
+        }
+    },
     "react-native-wechat-lib": "^1.1.15",
 }

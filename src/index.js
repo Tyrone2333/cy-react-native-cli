@@ -22,6 +22,20 @@ const packageMap = require(path.join(__dirname, '../template/packageMap'))
 // 检查更新
 require('./utils/checkUpdate')
 
+function installCmdAdd(depName, version, exactVersion) {
+    // 是否是已 ^ 开头的最新版本
+    const latest = /^\^/.test(version)
+
+    const v = version.replace(/\^/, '')
+
+    if (exactVersion) {
+        return ` ${ depName }@${ v } `
+    }
+
+    // 如果传入的不是 ^ 开头,无论如何都会返回一个精确版本
+    return latest ? ` ${ depName } ` : ` ${ depName }@${ v } `
+}
+
 module.exports = async function() {
     // cwd是指当前node命令执行时所在的文件夹目录
     // __dirname是指被执行js文件所在的文件夹目录
@@ -46,6 +60,7 @@ module.exports = async function() {
     program
         .version(packageJson.version, '-v, --version')
         .option('-y, --yes', '不出现询问,所有选项都按默认')
+        .option('--exact', '固定所有依赖的版本号')
 
     // init,创建 react-native 项目.测试先复制目录
 
@@ -149,7 +164,7 @@ module.exports = async function() {
                 }, {
                     type: 'checkbox',
                     name: 'dependencies',
-                    message: '请选择需要集成的插件 (按 <space> 选择, <a> 切换全部, <i> 反选)\n',
+                    message: '请选择需要集成的插件 (按 <space> 选择, <a> 全选, <i> 反选)\n',
                     choices: [{
                         name: 'react-native-syan-image-picker(图片选择,拍照)',
                         value: 'react-native-syan-image-picker',
@@ -175,7 +190,7 @@ module.exports = async function() {
                         value: 'react-native-wechat-lib',
                         checked: false,
                     }],
-                    default: ['jpush-react-native','react-native-syan-image-picker','react-native-wechat-lib'],
+                    default: [],
                 }]
 
                 if (yesForAll) {
@@ -189,11 +204,7 @@ module.exports = async function() {
                     })
                 }
 
-                // todo 要改
                 return inquirer.prompt(prompts).then(answers => {
-                    if (answers.dependencies.indexOf('react-native-video-controls') > -1) {
-                        answers.dependencies.push('react-native-video')
-                    }
                     return {
                         ...context,
                         metadata: {
@@ -255,6 +266,7 @@ module.exports = async function() {
             // 读取 package.json,修改内容
             .then(async context => {
                 // console.log('context', context)
+                const exactVersion = program.exact
 
                 const rnPkg = await fs.readJson('./package.json')
 
@@ -278,10 +290,9 @@ module.exports = async function() {
                 } = packageMap
 
                 for (const depName in dependencies) {
-                    const version = dependencies[depName].replace(/\^/, '')
+                    const version = dependencies[depName]
                     if (!utils.isItInstalled(depName, rnPkg)) {
-                        // 理论上应该使用 ^向上兼容版本,为防止出事,版本号都固定
-                        installDependenciesCmd += ` ${ depName }@${ version } `
+                        installDependenciesCmd += installCmdAdd(depName, version, exactVersion)
                     }
                 }
 
@@ -290,27 +301,35 @@ module.exports = async function() {
                     optionalDependencies,
                 } = packageMap
 
-                for (const depName in optionalDependencies) {
-                    const version = optionalDependencies[depName].replace(/\^/, '')
+                const waitingForInstallArr = metadata.dependencies
+                // 遍历选中的插件列表
+                for (const depName of waitingForInstallArr) {
+                    // 如果插件没有安装
+                    if (!utils.isItInstalled(depName, rnPkg)) {
+                        let version = ''
 
-                    if (
-                        metadata
-                        && metadata.dependencies
-                        && metadata.dependencies.includes(depName)
-                    ) {
-                        if (!utils.isItInstalled(depName, rnPkg)) {
-                            // 为防止出事,版本号都固定
-                            installDependenciesCmd += ` ${ depName }@${ version } `
+                        // 如果插件的值是字符串,那就是版本号
+                        if (typeof optionalDependencies[depName] === 'string') {
+                            version = optionalDependencies[depName]
 
-                            // 有的包是连体婴儿    // todo 连体婴儿包 改成用 对象形式
-                            if (depName === 'jpush-react-native') {
-                                installDependenciesCmd += ` ${ 'jcore-react-native' }@${ optionalDependencies['jcore-react-native'].replace(/\^/, '') } `
+                            installDependenciesCmd += installCmdAdd(depName, version, exactVersion)
+                        } else {
+                            // 插件的值是对象,说明插件还有依赖其他插件
+                            version = optionalDependencies[depName].version
+
+                            installDependenciesCmd += installCmdAdd(depName, version, exactVersion)
+
+                            const pluginDependencies = optionalDependencies[depName].dependencies
+
+                            for (const pluginDepName in pluginDependencies) {
+                                const version2 = pluginDependencies[pluginDepName]
+                                installDependenciesCmd += installCmdAdd(pluginDepName, version2, exactVersion)
                             }
                         }
                     }
                 }
 
-                console.log(installDependenciesCmd)
+                console.log('添加插件: ', installDependenciesCmd)
 
                 // 如果有需要执行依赖安装命令
                 installDependenciesCmd.length > 8
@@ -381,3 +400,4 @@ module.exports = async function() {
     // console.log(222)
     // return
 }
+
