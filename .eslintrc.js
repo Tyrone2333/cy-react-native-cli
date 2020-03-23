@@ -61,7 +61,7 @@ module.exports = {
         "new-cap": ["error", { // 构造函数首字母大写
             "properties": false, // 不检查属性，避免一些npm模块警告
         }],
-        "new-parens": ["error", 'never'], // 构造函数调用禁止()
+        // "new-parens": ["error", 'never'], // 构造函数调用禁止(). new Person() 要变成 (new Person),过于奇怪与习惯不符
         "no-loop-func": "error", // 禁止循环中出现函数定义
         "space-before-function-paren": ["error", 'never'], // function圆括号之前不能有空格
         "arrow-body-style": ["error", 'as-needed'], // 箭头函数体 是否需要()， 根据情况
