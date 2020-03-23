@@ -47,32 +47,11 @@ export default class Index extends Component {
                     WeChat.shareMiniProgram({
                         title: 'Mini program.',
                         userName: 'gh_d39d10000000',
-                        webpageUrl: 'https://google.com/show.html',
-                        thumbImageUrl: 'https://google.com/1.jpg',
+                        webpageUrl: 'https://www.baidu.com/s?ie=UTF-8&wd=shareMiniProgram',
+                        // 作者没有在 java 中处理错误,如果这个图片不存在会导致 app 闪退
+                        thumbImageUrl: 'https://www.baidu.com/img/bd_logo1.png?qua=high&where=super',
                         scene: 0
                     })
-                        .catch((error) => {
-                            Alert.alert(error.message);
-                        });
-                } else {
-                    Alert.alert('请安装微信');
-                }
-            });
-    }
-    share4 () {
-        WeChat.isWXAppInstalled()
-            .then((isInstalled) => {
-                if (isInstalled) {
-                    WeChat.shareToTimeline({
-                        title: '分享的标题',
-                        description: '分享的标题内容',
-                        thumbImage: '分享的标题图片',
-                        type: 'news',
-                        webpageUrl: '分享的链接'
-                    })
-                        .catch((error) => {
-                            Alert.alert(error.message);
-                        });
                 } else {
                     Alert.alert('请安装微信');
                 }
