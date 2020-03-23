@@ -41,6 +41,9 @@ import exampleVideo from '../views/example/video'
 import exampleWechatPay from '../views/example/wechatpay'
 import exampleWechatShare from '../views/example/wechatshare'
 <% } %>
+<% if (dependencies.includes('@0x5e/react-native-alipay')) { %>
+import exampleAlipayPay from '../views/example/alipaypay'
+<% } %>
 <% if (dependencies.includes('jpush-react-native')) { %>
 import exampleJpush from '../views/example/jpush'
 <% } %>
@@ -187,6 +190,14 @@ const Route = () => (
                     key="exampleWechatShare"
                     title="微信分享"
                     component={exampleWechatShare}
+                    navBar={CustomNavBar}
+                />
+                <% } %>
+                <% if (dependencies.includes('@0x5e/react-native-alipay')) { %>
+                <Scene
+                    key="exampleAlipayPay"
+                    title="支付宝支付"
+                    component={exampleAlipayPay}
                     navBar={CustomNavBar}
                 />
                 <% } %>

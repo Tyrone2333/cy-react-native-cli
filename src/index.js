@@ -189,6 +189,10 @@ module.exports = async function() {
                         name: 'react-native-wechat-lib(微信SDK)',
                         value: 'react-native-wechat-lib',
                         checked: false,
+                    }, {
+                        name: '@0x5e/react-native-alipay(支付宝SDK)',
+                        value: '@0x5e/react-native-alipay',
+                        checked: false,
                     }],
                     default: [],
                 }]

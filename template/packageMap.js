@@ -62,4 +62,5 @@ module.exports.optionalDependencies = {
         }
     },
     "react-native-wechat-lib": "^1.1.15",
+    "@0x5e/react-native-alipay": "^0.2.6",
 }

@@ -34,5 +34,11 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
+
+        <% if (dependencies.includes('@0x5e/react-native-alipay')) { %>
+        flatDir {
+            dirs "$rootDir/../node_modules/@0x5e/react-native-alipay/android/libs"
+        }
+        <% } %>
     }
 }

@@ -30,6 +30,10 @@ export default class extends Component {
                     url: 'exampleWechatShare'
                 },
                 {
+                    name: '支付宝支付',
+                    url: 'exampleAlipayPay'
+                },
+                {
                     name: '极光推送',
                     url: 'exampleJpush'
                 },
