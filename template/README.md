@@ -233,9 +233,38 @@ public class MainActivity extends ReactActivity {
 
 ### 5.5.2. ios 
 
-```text
+ios 无需其他配置,只要修改 `LaunchScreen.xib`
 
-```
+首先把需要的资源图片拖到 Images.xcassets
+
+![ios启动图1](../screenshot/ios启动图0.png)
+
+1. 打开 LaunchScreen.xib，删除 View 及 View 下的所有内容
+2. 点击右上角的加号，添加一个 View 和 Image View
+    ![ios启动图1](../screenshot/ios启动图1.png)
+    添加完成
+
+    ![ios启动图](../screenshot/ios启动图2.png)
+3. 把 Image View 拖到 View 内
+
+    ![ios启动图](../screenshot/ios启动图3.png)
+4. 设置 Image View 的图片路径
+
+    ![ios启动图](../screenshot/ios启动图4.png)
+
+5. 拖动图片到合适位置
+
+    ![ios启动图](../screenshot/ios启动图5.png)
+
+6. 点击直尺 icon，选中 AutoSizing 内的两个箭头。鼠标移到右侧可以看到容器随着设备尺寸变化而变化 
+
+    ![ios启动图](../screenshot/ios启动图6.png)
+
+7. 同理添加一个文字并移动到底部，选中 AutoSizing 内的两个箭头和底部的一个箭头，使其大小自适应并固定在底部。
+    可以切换不同的设备查看效果，如果文字被遮盖可以调整 width 和 height
+
+    ![ios启动图](../screenshot/ios启动图7.png)
+
 
 ## 5.6. 极光推送 [jpush-react-native](https://github.com/jpush/jpush-react-native)
 ### 5.6.1. 安装两个依赖
@@ -286,37 +315,7 @@ project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '..
 	android:value="${JPUSH_APPKEY}" />   
 ```
 #### 5.6.2.2. IOS
-首先把需要的资源图片拖到 Images.xcassets
-
-![ios启动图1](../screenshot/ios启动图0.png)
-
-1. 打开 LaunchScreen.xib，删除 View 及 View 下的所有内容
-2. 点击右上角的加号，添加一个 View 和 Image View
-    ![ios启动图1](../screenshot/ios启动图1.png)
-    添加完成
-
-    ![ios启动图](../screenshot/ios启动图2.png)
-3. 把 Image View 拖到 View 内
-
-    ![ios启动图](../screenshot/ios启动图3.png)
-4. 设置 Image View 的图片路径
-
-    ![ios启动图](../screenshot/ios启动图4.png)
-
-5. 拖动图片到合适位置
-
-    ![ios启动图](../screenshot/ios启动图5.png)
-
-6. 点击直尺 icon，选中 AutoSizing 内的两个箭头。鼠标移到右侧可以看到容器随着设备尺寸变化而变化 
-
-    ![ios启动图](../screenshot/ios启动图6.png)
-
-7. 同理添加一个文字并移动到底部，选中 AutoSizing 内的两个箭头和底部的一个箭头，使其大小自适应并固定在底部。
-    可以切换不同的设备查看效果，如果文字被遮盖可以调整 width 和 height
-
-    ![ios启动图](../screenshot/ios启动图7.png)
-
-
+参考官方文档
 
 ### 5.6.3. 集成完成测试
 
@@ -338,6 +337,18 @@ project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '..
 模拟器没有`registerID`,如果真机可以收到通知则表明集成成功
 
 ### 5.6.4. 注意问题
+暂无
+
+## 5.7. 微信相关 [react-native-wechat-lib](https://github.com/little-snow-fox/react-native-wechat-lib)
+
+为适配iOS系统版本更新，微信开放平台在2019年9月对移动应用iOS SDK进行了升级。为提升平台安全性、避免开发者的应用后续受到影响，平台将于近期开始逐步对iOS 旧版本 SDK能力（版本号低于1.8.6.1）进行阶梯式调整，具体计划如下：
+
+1. 2020年3月20日起对旧版本 SDK 发起的分享增加“未验证应用”安全提示
+
+2. 2020年6月1日起限制旧版本 SDK 使用微信分享、微信登录、打开小程序、一次性订阅消息等能力.当用户使用能力时，将会提示“由于应用版本过低，无法正常使用此能力”的提示
+
+目前[react-native-wechat](https://github.com/yorkie/react-native-wechat)库仍然使用老旧的 SDK, 更新 SDK 的 [PR](https://github.com/yorkie/react-native-wechat/pull/526) 迟迟没有合并所以暂时用 [react-native-wechat-lib](https://github.com/little-snow-fox/react-native-wechat-lib) 替代. 
+
 
 
 # 6. 常见问题
