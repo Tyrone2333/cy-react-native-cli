@@ -208,14 +208,12 @@ module.exports = async function() {
                     })
                 }
 
-                return inquirer.prompt(prompts).then(answers => {
-                    return {
-                        ...context,
-                        metadata: {
-                            ...answers,
-                        },
-                    }
-                })
+                return inquirer.prompt(prompts).then(answers => ({
+                    ...context,
+                    metadata: {
+                        ...answers,
+                    },
+                }))
             })
             .then(async context => {
                 // eslint-disable-next-line prefer-destructuring

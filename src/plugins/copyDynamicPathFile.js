@@ -21,12 +21,14 @@ module.exports = function() {
         const infoPlist = files[`${ dynamicPath }Info.plist`]
         infoPlist && (files[`ios\\${ meta.projectName }\\Info.plist`] = infoPlist)
 
-        // 微信相关
-        const wxapi1 = files[`${ dynamicPath }wxapi\\WXEntryActivity.java`]
-        const wxapi2 = files[`${ dynamicPath }wxapi\\WXPayEntryActivity.java`]
-        wxapi1 && (files[`android\\app\\src\\main\\java\\com\\${ meta.projectName }\\wxapi\\WXEntryActivity.java`] = wxapi1)
+        if (meta.dependencies.includes('react-native-wechat-lib')) {
+            // 微信相关
+            const wxapi1 = files[`${ dynamicPath }wxapi\\WXEntryActivity.java`]
+            const wxapi2 = files[`${ dynamicPath }wxapi\\WXPayEntryActivity.java`]
+            wxapi1 && (files[`android\\app\\src\\main\\java\\com\\${ meta.projectName }\\wxapi\\WXEntryActivity.java`] = wxapi1)
 
-        wxapi2 && (files[`android\\app\\src\\main\\java\\com\\${ meta.projectName }\\wxapi\\WXPayEntryActivity.java`] = wxapi2)
+            wxapi2 && (files[`android\\app\\src\\main\\java\\com\\${ meta.projectName }\\wxapi\\WXPayEntryActivity.java`] = wxapi2)
+        }
 
         // Object.keys(files).forEach((fileName) => {
         //
