@@ -159,7 +159,7 @@ module.exports = {
         "lines-around-comment": ["error", { // 块级注释之前有空行
             beforeBlockComment: true,
         }],
-        "multiline-ternary": ["error", 'never'], // 禁止三元操作数换行
+        "multiline-ternary": ["error", "always-multiline"], // 如果表达式跨越多个行，则在三元表达式的操作数之间强制换行。
         "no-nested-ternary": "error", // 禁止嵌套三元运算
         "no-unneeded-ternary": "error", // 避免不必要的三元运算
         "no-lonely-if": "error", // else中禁止出现if
