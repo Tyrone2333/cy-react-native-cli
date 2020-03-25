@@ -23,9 +23,14 @@ module.exports = function() {
 
         mainApplicationJava && (files[path.join(`android/app/src/main/java/com/${ meta.projectName }/MainApplication.java`)] = mainApplicationJava)
 
-        // 复制 ios 相关
+        // 复制 ios 相关 - Info.plist
         const infoPlist = files[`${ dynamicPath }Info.plist`]
         infoPlist && (files[path.join(`ios/${ meta.projectName }/Info.plist`)] = infoPlist)
+
+        // 复制 ios 相关 - AppDelegate.m
+        const AppDelegateM = files[`${ dynamicPath }AppDelegate.m`]
+        AppDelegateM && (files[path.join(`ios/${ meta.projectName }/AppDelegate.m`)] = AppDelegateM)
+
 
         if (meta.dependencies.includes('react-native-wechat-lib')) {
             // 微信相关

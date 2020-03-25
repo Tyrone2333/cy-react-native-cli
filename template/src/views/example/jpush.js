@@ -54,6 +54,9 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
+        console.log('JPush:' ,JPush)
+        console.log('JPush.getRegistrationID:' ,JPush.getRegistrationID)
+
         JPush.init()
         // 用户与RegistrationId绑定
         JPush.getRegistrationID(result => {

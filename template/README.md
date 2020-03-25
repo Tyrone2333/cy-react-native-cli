@@ -315,7 +315,26 @@ project(':jcore-react-native').projectDir = new File(rootProject.projectDir, '..
 	android:value="${JPUSH_APPKEY}" />   
 ```
 #### 5.6.2.2. IOS
-参考官方文档
+参考官方文档修改 [`AppDelegate.m`](https://github.com/jpush/jpush-react-native/blob/master/example/ios/example/AppDelegate.m)
+具体有3处：
+1. 添加必须的头文件
+    ```text
+        #import <RCTJPushModule.h>
+        #ifdef NSFoundationVersionNumber_iOS_9_x_Max
+        #import <UserNotifications/UserNotifications.h>
+        #endif
+    ```
+2. 修改`- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions`
+3. 添加处理 APNs 通知回调方法（有多个）
+
+接着添加 Application Target 的 Capabilities -> Push Notifications
+
+注意： 你需要已经添加了 push 证书签名才会正常，否则会提示`Your development team, "en20", does not support the Push Notifications capability.`证书的添加请看下一节
+
+成功示例如图：
+![ios启动图](../screenshot/极光ios证书说明-PushNotifications.png)
+
+
 
 ### 5.6.3. 集成完成测试
 

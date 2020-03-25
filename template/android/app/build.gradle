@@ -135,7 +135,7 @@ android {
         versionName "1.0.0"
         <% if (dependencies.includes('jpush-react-native')) { %>
         manifestPlaceholders = [
-            JPUSH_APPKEY: "3e41a1fe13408e95499aad99",         //在此替换你的APPKey
+            JPUSH_APPKEY: "a1e791208a07a15172a2ef8b",         //在此替换你的APPKey
             JPUSH_CHANNEL: "default"        //在此替换你的channel
         ]
         <% } %>
