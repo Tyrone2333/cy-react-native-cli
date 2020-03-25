@@ -14,10 +14,6 @@ export default class Index extends Component {
         }
     }
 
-    componentDidMount() {
-        
-    }
-
     render() {
         let path = 'http://vfx.mtime.cn/Video/2019/03/21/mp4/190321153853126488.mp4'
         return (
@@ -25,9 +21,11 @@ export default class Index extends Component {
                 <View style={styles.fullScreen}>
                         <Video
                             source={{uri: path}}
-                            // navigator={ this.props.navigator }
-                            disableBack={ true }
-                            disableVolume={ true }
+                            disableBack
+                            disableVolume
+                            controlTimeout={5000}
+                            onPause={()=>{console.log('暂停')}}
+                            onPlay={()=>{console.log('播放状态')}}
                         />
                 </View>
             </View>
