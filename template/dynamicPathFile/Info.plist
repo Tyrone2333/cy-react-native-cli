@@ -12,6 +12,28 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>请允许访问相册以选取照片</string>
 	<% } %>
+
+	<% if (dependencies.includes('@0x5e/react-native-alipay')) { %>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>alipay</string>
+    </array>
+    <!-- 相当于 Create a url type in Info -> URL Types. Set alipay to Identifier, set an unique id to URL Schemes (whatever you like). -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>alipay</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>alipaycyaaa</string>
+            </array>
+        </dict>
+    </array>
+	<% } %>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

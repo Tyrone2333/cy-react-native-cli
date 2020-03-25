@@ -20,6 +20,12 @@
 #endif
 <% } %>
 
+<% if (dependencies.includes('@0x5e/react-native-alipay')) { %>
+// 引入 alipay 相关
+#import <React/RCTLinkingManager.h>
+<% } %>
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -75,7 +81,7 @@
 
     <% if (dependencies.includes('jpush-react-native')) { %>
 
-//************************************************JPush start************************************************
+//************************************************ JPush start ************************************************
 
 //注册 APNS 成功并上报 DeviceToken
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -137,7 +143,27 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:J_CUSTOM_NOTIFICATION_EVENT object:userInfo];
 }
 
-//************************************************JPush end************************************************
+//************************************************ JPush end ************************************************
     <% } %>
+
+
+<% if (dependencies.includes('@0x5e/react-native-alipay')) { %>
+//************************************************ 引入 alipay 相关 start ************************************************
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application openURL:url
+                      sourceApplication:sourceApplication annotation:annotation];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
+
+//************************************************ 引入 alipay 相关 end ************************************************
+<% } %>
 
 @end
