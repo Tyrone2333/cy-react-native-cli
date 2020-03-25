@@ -11,17 +11,6 @@ import {
 import { px } from '../../style/util/config'
 import Alipay from '@0x5e/react-native-alipay';
 
-// 需在node_modules>@0x5e>react-native-alipay>android>src>main>java>com>reactlibrary>AlipayModule.java file里：
-// 
-// import com.alipay.sdk.app.EnvUtils;
-// @ReactMethod
-// public void setAlipaySandbox(Boolean isSandbox) {
-// if(isSandbox){
-// EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
-// }else {
-// EnvUtils.setEnv(EnvUtils.EnvEnum.ONLINE);
-// }
-// }
 export default class Index extends Component {
     constructor(props) {
         super(props)
@@ -41,19 +30,26 @@ export default class Index extends Component {
     }
 
 
-    async submit() {
-        // orderStr是访问后端接口返回的数据
-        try {
-            // 打开沙箱
-            console.log(Alipay)
-            Alipay.setAlipaySandbox(true)
-            let orderStr = 'app_id=xxxx&method=alipay.trade.app.pay&charset=utf-8&timestamp=2014-07-24 03:07:50&version=1.0&notify_url=https%3A%2F%2Fapi.xxx.com%2Fnotify&biz_content=%7B%22subject%22%3A%22%E5%A4%A7%E4%B9%90%E9%80%8F%22%2C%22out_trade_no%22%3A%22xxxx%22%2C%22total_amount%22%3A%229.00%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%7D&sign_type=RSA2&sign=xxxx'; // get from server, signed
-            let response = await Alipay.pay(orderStr);
-            console.info(response);
-
-        } catch (error) {
-            console.error(error);
-        }
+    submit() {
+        let url = 'http://api3.yituqipei.com/app/recharge/charge'
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'version': '3.1.0'
+            },
+            body: 'token=f9397665f93f7c85f126759309fbcf1d&recharge_card_id=&recharge_money=0.01&pay_type=2'
+        }).then(res => res.json()).then(data => {
+            console.log(data)
+            Alipay.pay(data.info).then(res => {
+                console.log(res)
+                if (res.resultStatus == "9000") {
+                    console.log('操作成功')
+                } else if (res.resultStatus == "6001") {
+                    console.log('用户中途取消')
+                }
+            })
+        })
     }
 
     render() {
