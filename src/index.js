@@ -358,7 +358,19 @@ module.exports = async function() {
             .then(context => {
                 console.log(chalk.green('创建成功:)'))
 
-                console.log(chalk.green(`cd ${ context.root }\nyarn run android`))
+                console.log(chalk.cyan('在 Android 上运行： '))
+
+                console.log(chalk.black(` - cd ${ context.root }`))
+
+                console.log(chalk.black(' - yarn run android'))
+
+                console.log(chalk.cyan('在 IOS 上运行： '))
+
+                console.log(chalk.black(` - cd ${ context.root }`))
+
+                console.log(chalk.black(' - yarn run pod-install'))
+
+                console.log(chalk.black(' - yarn run ios'))
             })
             .catch(err => {
                 // 失败了用红色，增强提示
