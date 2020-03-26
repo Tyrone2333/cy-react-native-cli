@@ -34,6 +34,10 @@ import TakePhoto from '../views/TakePhoto'
 <% if (dependencies.includes('react-native-swiper')) { %>
 import exampleSwiper from '../views/example/swiper'
 <% } %>
+<% if (dependencies.includes('react-native-image-zoom-viewer')) { %>
+import exampleShowImage from '../views/example/ShowImage'
+import exampleShowImageList from '../views/example/ShowImageList'
+<% } %>
 <% if (dependencies.includes('react-native-video-controls')) { %>
 import exampleVideo from '../views/example/video'
 <% } %>
@@ -168,6 +172,20 @@ const Route = () => (
                     key="exampleSwiper"
                     title="Swiper"
                     component={exampleSwiper}
+                    navBar={CustomNavBar}
+                />
+                <% } %>
+                <% if (dependencies.includes('react-native-image-zoom-viewer')) { %>
+                <Scene
+                    key="exampleShowImage"
+                    title="图片预览"
+                    component={exampleShowImage}
+                    navBar={CustomNavBar}
+                />
+                <Scene
+                    key="exampleShowImageList"
+                    title="图片预览列表"
+                    component={exampleShowImageList}
                     navBar={CustomNavBar}
                 />
                 <% } %>
