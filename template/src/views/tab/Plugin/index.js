@@ -18,6 +18,10 @@ export default class extends Component {
                     url: 'exampleSwiper'
                 },
                 {
+                    name: '图片预览',
+                    url: 'exampleShowImageList'
+                },
+                {
                     name: '视频播放',
                     url: 'exampleVideo'
                 },

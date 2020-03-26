@@ -182,6 +182,10 @@ module.exports = async function() {
                         value: 'react-native-swiper',
                         checked: false,
                     }, {
+                        name: 'react-native-image-zoom-viewer(图片预览)',
+                        value: 'react-native-image-zoom-viewer',
+                        checked: false,
+                    }, {
                         name: 'react-native-video-controls(视频播放)',
                         value: 'react-native-video-controls',
                         checked: false,
