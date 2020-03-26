@@ -31,7 +31,6 @@ module.exports = function() {
         const AppDelegateM = files[`${ dynamicPath }AppDelegate.m`]
         AppDelegateM && (files[path.join(`ios/${ meta.projectName }/AppDelegate.m`)] = AppDelegateM)
 
-
         if (meta.dependencies.includes('react-native-wechat-lib')) {
             // 微信相关
             const wxapi1 = files[path.join(`${ dynamicPath }wxapi/WXEntryActivity.java`)]

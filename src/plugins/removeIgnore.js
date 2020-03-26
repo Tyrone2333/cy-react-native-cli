@@ -18,11 +18,11 @@ const removeIgnore = src => async function(files, metalsmith, done) {
         const content = await render(fs.readFileSync(ignoreFile).toString(), meta)
 
         const ignores = content.split('\n')
-        // 去掉空格,把 / 换成 //
+            // 去掉空格,把 / 换成 //
             .map(s => s.trim().replace(/\//g, '\\'))
-        // 去空行
+            // 去空行
             .filter(item => item.length)
-        // # 开头为注释,去掉
+            // # 开头为注释,去掉.这里返回不以 # 开头的内容
             .filter(item => /^(?!#)/u.test(item))
 
         //删除被忽略的文件
