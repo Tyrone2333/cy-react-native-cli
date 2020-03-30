@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://gitee.com/yang_update/cy-cli/compare/v1.1.0...v1.2.0) (2020-03-30)
+
+
+### Features
+
+* 优化 package.json 获取 ([d23c8fd](https://gitee.com/yang_update/cy-cli/commit/d23c8fd317b262e397ab26fe07396b89bb91555d))
+* 增加 eslint 配置 ([1ef9965](https://gitee.com/yang_update/cy-cli/commit/1ef9965b7ff159cd0af8b3877d31e8a606c5c5b5))
+* 增加 ignores 文件的注释 ([68cd9ed](https://gitee.com/yang_update/cy-cli/commit/68cd9ed7108dfe2ccc49f29d56fe7158ab582a4f))
+* 增加 启动图 安卓端详细文档,修复启动图在非 16:9 的变形问题.尝试使用 .9.PNG 做自适应启动,但失败 ([9ea5914](https://gitee.com/yang_update/cy-cli/commit/9ea5914d624e309f56baf543585c441078519539))
+* 增加 极光推送 安卓端 ([4e4e5f8](https://gitee.com/yang_update/cy-cli/commit/4e4e5f82e5e12122b468ec33a391472f5a70fa02))
+* 微信 sdk 迁移到新库 react-native-wechat-lib,测试安卓分享小程序会闪退. ([075a0fe](https://gitee.com/yang_update/cy-cli/commit/075a0fe29c4c19e7e090abdb3880f9b554d3ff50))
+* 新增 ios 报错 No bundle URL present 的解决方案 ([7ff9a34](https://gitee.com/yang_update/cy-cli/commit/7ff9a349ca601e2c391385fad90914e927b7e8cb))
+* 新增 ios 支付宝集成 ([caf1fe8](https://gitee.com/yang_update/cy-cli/commit/caf1fe80e7c64ae2d126488d5d1159f329faeadb))
+* 新增 ios 的极光推送，并增加文档说明 ([59e8ee8](https://gitee.com/yang_update/cy-cli/commit/59e8ee8d46929c3bd192bf46d5015338435b9d11))
+* 新增 proguard-rules.pro ([2b46a8e](https://gitee.com/yang_update/cy-cli/commit/2b46a8e204950a5b26318ff7d2bdf54bf1585a33))
+* 新增 在 IOS 上运行的 log ([44142f7](https://gitee.com/yang_update/cy-cli/commit/44142f72a037262d2ad16afcc6b913928afd7ef2))
+* 重写一个插件需要依赖另一个插件的安装方式 ([950a752](https://gitee.com/yang_update/cy-cli/commit/950a75289e1ca18341376c8c8a9a5b5840610c97))
+
+
+### Bug Fixes
+
+* 修复 package 是保留字的问题,允许三元表达式跨越多行 ([ac07488](https://gitee.com/yang_update/cy-cli/commit/ac074880796ebb2531e910af91392ba996428032))
+* 修复 Windows/POSIX 分隔符不同导致的文件路径出错.使用 path.sep / path.join() 连接文件，然后规范化生成的路径。 ([a3f780f](https://gitee.com/yang_update/cy-cli/commit/a3f780fc4f03b60d5b7aec07b7cb9478cacae21b))
+* 修复分享到小程序闪退的问题.略缩图不存在会导致闪退 ([bbd6dda](https://gitee.com/yang_update/cy-cli/commit/bbd6dda7ca443fe880005d4b9d6c51f2f5b93b0f))
+* 修复未集成微信导致安卓打包出错的问题 ([38dd67f](https://gitee.com/yang_update/cy-cli/commit/38dd67f27ba85e5eee7830fb95520654f4d9e401))
+
 ## [1.1.0](https://gitee.com/yang_update/cy-cli/compare/v1.0.5...v1.1.0) (2020-03-17)
 
 
