@@ -1,5 +1,5 @@
 # 1. 说明
-创意 react-native 项目生成器
+创易 react-native 项目生成器
 根据官方的 `react-native init AwesomeProject` 生成项目,集成`mobx`,`react-native-router-flux`路由,`react-native-root-toast`弹窗.
 
 可选安装列表:
